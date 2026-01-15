@@ -129,4 +129,18 @@ draft: false&lt;/h2&gt;
 &lt;h2 id=&#34;draft-false&#34;&gt;title: &amp;ldquo;{{ replace .Name &amp;ldquo;-&amp;rdquo; &amp;quot; &amp;quot; | title }}&amp;rdquo;
 date: {{ .Date }}
 draft: false&lt;/h2&gt;
-&lt;h2 id=&#34;note
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+&lt;h2 id=&#34;important-commands&#34;&gt;Important Commands&lt;/h2&gt;
+&lt;h2 id=&#34;examples&#34;&gt;Examples&lt;/h2&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>My First DevOps Blog</title>
+      <link>http://localhost:1313/devops-blog/posts/my-first-devops-post/</link>
+      <pubDate>Thu, 15 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/devops-blog/posts/my-first-devops-post/</guid>
+      <description>&lt;h1 id=&#34;welcome&#34;&gt;Welcome&lt;/h1&gt;
+&lt;p&gt;This is my first DevOps blog post&amp;hellip;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
