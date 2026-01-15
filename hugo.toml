@@ -1,0 +1,65 @@
+baseURL = "http://localhost:1313/"
+languageCode = "en-us"
+title = "My DevOps Blog"
+theme = "PaperMod"
+
+[params]
+  defaultTheme = "dark"
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowCodeCopyButtons = true
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+[menu]
+
+  [[menu.main]]
+    name = "🐧 Linux"
+    url = "/linux/"
+    weight = 1
+
+  [[menu.main]]
+    name = "🌱 Git"
+    url = "/git/"
+    weight = 2
+
+  [[menu.main]]
+    name = "🔁 CI/CD"
+    url = "/cicd/"
+    weight = 3
+
+  [[menu.main]]
+    name = "☁️ Cloud"
+    url = "/cloud/"
+    weight = 4
+
+  [[menu.main]]
+    name = "🐳 Docker"
+    url = "/docker/"
+    weight = 5
+
+  [[menu.main]]
+    name = "☸️ Kubernetes"
+    url = "/kubernetes/"
+    weight = 6
+
+  [[menu.main]]
+    name = "🏗 Terraform"
+    url = "/terraform/"
+    weight = 7
+
+  [[menu.main]]
+    name = "⚙️ Ansible"
+    url = "/ansible/"
+    weight = 8
+
+  [[menu.main]]
+    name = "🧠 Scenarios"
+    url = "/scenarios/"
+    weight = 9

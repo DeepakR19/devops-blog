@@ -1,0 +1,38 @@
+/* Hide ALL header/navigation elements on homepage only */
+body.home header,
+body.home .header,
+body.home .nav,
+body.home .nav-wrapper {
+  display: none !important;
+}
+
+/* Optional: remove top spacing left by header */
+body.home .main {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+/* Active nav item */
+.nav a.active,
+.menu a.active {
+  font-weight: 600;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 4px;
+}
+/* Improve nav spacing */
+.nav,
+.menu {
+  gap: 18px;
+}
+
+.nav a,
+.menu a {
+  padding: 6px 4px;
+}
+/* Mobile nav tweaks */
+@media (max-width: 768px) {
+  .nav a,
+  .menu a {
+    padding: 10px 0;
+    display: block;
+  }
+}
