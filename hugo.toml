@@ -1,4 +1,4 @@
-baseURL = "https://DeepakR19.github.io/devops-blog/"
+baseURL = "https://deepakr19.github.io/devops-blog/"
 languageCode = "en-us"
 title = "My DevOps Blog"
 theme = "PaperMod"
