@@ -1,5 +1,19 @@
-+++
-date = '2026-01-15T18:27:35+05:30'
-draft = true
-title = 'Docker'
-+++
+---
+title: "Docker"
+date: 2026-01-15T16:29:54Z
+draft: false
+---
+
+---
+title: "{{ replace .Name "-" " " | title }}"
+date: {{ .Date }}
+draft: false
+---
+
+## Notes
+
+## Important Commands
+
+## Examples
+
+## References
