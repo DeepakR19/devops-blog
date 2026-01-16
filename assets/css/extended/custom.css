@@ -129,3 +129,78 @@ p { line-height: 1.7; }
   font-size: 0.85rem;
   opacity: 0.6;
 }
+/* ===== Header Layout ===== */
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: var(--theme);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.site-nav {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
+
+.nav-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.nav-left {
+  justify-self: start;
+}
+
+.nav-center {
+  justify-self: center;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.nav-right {
+  justify-self: end;
+}
+
+.site-logo {
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+/* ===== Pills ===== */
+
+.nav-pill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--entry);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.nav-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.nav-pill.active {
+  background: var(--primary);
+  color: white;
+  border-color: transparent;
+}
+
+/* ===== Theme Toggle ===== */
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 10px;
+  cursor: pointer;
+}

@@ -2,11 +2,14 @@
   <nav class="site-nav">
     <div class="nav-inner">
 
-      <div class="nav-logo">
-        <a href="{{ "" | absLangURL }}">{{ site.Title }}</a>
+      <!-- Left: Logo -->
+      <div class="nav-left">
+        <a class="site-logo" href="{{ "" | absLangURL }}">{{ site.Title }}</a>
       </div>
 
-      <div class="nav-links">
+      <!-- Center: Primary Navigation (hidden on homepage) -->
+      {{ if not .IsHome }}
+      <div class="nav-center">
         {{- $currentPage := . }}
         {{- range site.Menus.main }}
           {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL)) | absLangURL }}
@@ -16,6 +19,17 @@
             {{ .Name }}
           </a>
         {{- end }}
+      </div>
+      {{ end }}
+
+      <!-- Right: Theme Toggle -->
+      <div class="nav-right">
+        {{ if not site.Params.disableThemeToggle }}
+        <button id="theme-toggle" class="theme-toggle" title="Toggle theme">
+          <span class="moon">🌙</span>
+          <span class="sun">☀️</span>
+        </button>
+        {{ end }}
       </div>
 
     </div>
