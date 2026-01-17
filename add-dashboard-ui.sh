@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Applying VERIFIED DevOps Dashboard UI..."
+echo "Applying FINAL FIXED DevOps Dashboard UI..."
 
 mkdir -p static/css static/js layouts/partials
 
-# ---------------- CSS ----------------
-cat > static/css/dashboard-correct.css <<'EOF'
+# =========================
+# CSS
+# =========================
+cat > static/css/dashboard-final-fixed.css <<'EOF'
+/* Hide PaperMod's theme toggle & header conflicts */
+.theme-toggle, .top-link, header, .nav {
+  display: none !important;
+}
+
+/* Dashboard variables */
 :root {
   --dash-bg: var(--theme);
   --dash-card: var(--entry);
@@ -16,6 +24,7 @@ cat > static/css/dashboard-correct.css <<'EOF'
   --dash-accent: var(--link-color);
 }
 
+/* Top bar */
 .dashboard-topbar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -46,7 +55,7 @@ cat > static/css/dashboard-correct.css <<'EOF'
   color: var(--dash-text);
 }
 
-.theme-toggle {
+.theme-btn {
   cursor: pointer;
   border: 1px solid var(--dash-border);
   padding: 4px 10px;
@@ -55,6 +64,7 @@ cat > static/css/dashboard-correct.css <<'EOF'
   color: var(--dash-text);
 }
 
+/* Sidebar */
 .dashboard-sidebar {
   position: fixed;
   top: 56px;
@@ -85,6 +95,7 @@ cat > static/css/dashboard-correct.css <<'EOF'
   background: var(--dash-card);
 }
 
+/* Main content fix */
 .dashboard-main {
   margin-top: 56px;
   margin-left: 260px;
@@ -97,7 +108,7 @@ cat > static/css/dashboard-correct.css <<'EOF'
   margin-left: 0;
 }
 
-/* Remove PaperMod width constraints */
+/* Remove PaperMod width limits */
 .main {
   max-width: 100% !important;
   padding-left: 0 !important;
@@ -105,35 +116,37 @@ cat > static/css/dashboard-correct.css <<'EOF'
 }
 EOF
 
-# ---------------- JS ----------------
-cat > static/js/dashboard-correct.js <<'EOF'
+# =========================
+# JS
+# =========================
+cat > static/js/dashboard-final-fixed.js <<'EOF'
 (function () {
-  function applyThemeFromStorage() {
+  function applyTheme() {
     const pref = localStorage.getItem("pref-theme");
     if (pref === "dark") {
       document.body.classList.add("dark");
-    } else if (pref === "light") {
+    } else {
       document.body.classList.remove("dark");
     }
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    applyThemeFromStorage();
+    applyTheme();
 
     const toggle = document.getElementById("dash-toggle");
     const sidebar = document.getElementById("dash-sidebar");
     const main = document.getElementById("dash-main");
-    const themeBtn = document.getElementById("theme-toggle-btn");
+    const themeBtn = document.getElementById("theme-btn");
 
     if (toggle && sidebar && main) {
-      toggle.addEventListener("click", function () {
+      toggle.onclick = () => {
         sidebar.classList.toggle("collapsed");
         main.classList.toggle("full");
-      });
+      };
     }
 
     if (themeBtn) {
-      themeBtn.addEventListener("click", function () {
+      themeBtn.onclick = () => {
         const isDark = document.body.classList.contains("dark");
         if (isDark) {
           document.body.classList.remove("dark");
@@ -142,26 +155,30 @@ cat > static/js/dashboard-correct.js <<'EOF'
           document.body.classList.add("dark");
           localStorage.setItem("pref-theme", "dark");
         }
-      });
+      };
     }
   });
 })();
 EOF
 
-# ---------------- HEAD HOOK ----------------
+# =========================
+# Head Hook
+# =========================
 cat > layouts/partials/extend_head.html <<'EOF'
-<link rel="stylesheet" href="/css/dashboard-correct.css">
-<script defer src="/js/dashboard-correct.js"></script>
+<link rel="stylesheet" href="/css/dashboard-final-fixed.css">
+<script defer src="/js/dashboard-final-fixed.js"></script>
 EOF
 
-# ---------------- FOOTER HOOK (safe for PaperMod) ----------------
+# =========================
+# Footer Hook (Safe Injection)
+# =========================
 cat > layouts/partials/extend_footer.html <<'EOF'
 <div class="dashboard-topbar">
   <div class="dashboard-left">
     <span id="dash-toggle" class="dashboard-toggle">☰</span>
     <div class="dashboard-brand">DevOps Dashboard</div>
   </div>
-  <button id="theme-toggle-btn" class="theme-toggle">🌓</button>
+  <button id="theme-btn" class="theme-btn">🌓</button>
 </div>
 
 <div id="dash-sidebar" class="dashboard-sidebar">
@@ -181,8 +198,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 EOF
 
-echo "✅ Correct dashboard UI applied."
-echo "Now run:"
+echo "✅ FINAL FIX APPLIED"
+echo "Run:"
 echo "hugo server --disableFastRender"
 echo "Then HARD refresh: Ctrl + Shift + R"
 
