@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Resetting to stable PaperMod + adding clean dashboard..."
+echo "=== FINAL STABLE RESET + DASHBOARD SETUP ==="
 
-# 1. Remove all previous dashboard hacks
+# 1. Remove all previous broken overrides
 rm -f static/css/dashboard-*.css
 rm -f static/js/dashboard-*.js
 rm -f layouts/partials/extend_head.html
@@ -11,10 +11,10 @@ rm -f layouts/partials/extend_body.html
 rm -f layouts/partials/extend_footer.html
 rm -f layouts/_default/baseof.html
 
-# 2. Create directories if needed
-mkdir -p static/css layouts
+# 2. Ensure folders exist
+mkdir -p static/css layouts/partials
 
-# 3. Add clean dashboard CSS (PaperMod-safe)
+# 3. Clean dashboard CSS (PaperMod safe)
 cat > static/css/dashboard-clean.css <<'EOF'
 .dashboard-grid {
   display: grid;
@@ -31,6 +31,7 @@ cat > static/css/dashboard-clean.css <<'EOF'
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   text-decoration: none;
   color: var(--primary);
+  display: block;
 }
 
 .dashboard-card:hover {
@@ -48,13 +49,12 @@ cat > static/css/dashboard-clean.css <<'EOF'
 }
 EOF
 
-# 4. Hook CSS into PaperMod safely
-mkdir -p layouts/partials
+# 4. Hook CSS safely
 cat > layouts/partials/extend_head.html <<'EOF'
 <link rel="stylesheet" href="/css/dashboard-clean.css">
 EOF
 
-# 5. Create clean homepage dashboard
+# 5. Create clean dashboard homepage
 cat > layouts/index.html <<'EOF'
 {{ define "main" }}
 <div class="page-header">
@@ -99,9 +99,11 @@ cat > layouts/index.html <<'EOF'
 {{ end }}
 EOF
 
-echo "✅ Stable reset + clean dashboard applied"
+echo "=== DONE ==="
 echo ""
 echo "Now run:"
-echo "hugo server --disableFastRender"
-echo "Then hard refresh: Ctrl + Shift + R"
+echo "  hugo server --disableFastRender"
+echo ""
+echo "Then HARD refresh:"
+echo "  Ctrl + Shift + R"
 
