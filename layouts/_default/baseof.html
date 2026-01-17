@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ .Title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/main.css">
+  <script defer src="/js/main.js"></script>
+</head>
+<body>
+  {{ if not .IsHome }}
+    {{ partial "topnav.html" . }}
+    {{ partial "breadcrumbs.html" . }}
+  {{ end }}
+
+  <main class="main">
+    {{ block "main" . }}{{ end }}
+  </main>
+</body>
+</html>

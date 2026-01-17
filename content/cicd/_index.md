@@ -1,19 +1,7 @@
 ---
-title: "Cicd"
-date: 2026-01-15T16:29:56Z
-draft: false
+title: "CICD"
 ---
 
----
-title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
-draft: false
----
+# Cicd
 
-## Notes
-
-## Important Commands
-
-## Examples
-
-## References
+Welcome to the Cicd section.

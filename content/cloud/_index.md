@@ -1,19 +1,7 @@
 ---
-title: "Cloud"
-date: 2026-01-15T16:29:58Z
-draft: false
+title: "CLOUD"
 ---
 
----
-title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
-draft: false
----
+# Cloud
 
-## Notes
-
-## Important Commands
-
-## Examples
-
-## References
+Welcome to the Cloud section.

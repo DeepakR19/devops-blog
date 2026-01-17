@@ -1,0 +1,11 @@
+<nav class="breadcrumbs">
+  <a href="/">Home</a>
+  {{ with .CurrentSection }}
+    <span class="crumb-sep">→</span>
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  {{ end }}
+  {{ if .IsPage }}
+    <span class="crumb-sep">→</span>
+    <span>{{ .Title }}</span>
+  {{ end }}
+</nav>

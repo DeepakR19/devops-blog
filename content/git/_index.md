@@ -1,19 +1,7 @@
 ---
-title: "Git"
-date: 2026-01-15T16:29:51Z
-draft: false
+title: "GIT"
 ---
 
----
-title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
-draft: false
----
+# Git
 
-## Notes
-
-## Important Commands
-
-## Examples
-
-## References
+Welcome to the Git section.

@@ -1,19 +1,7 @@
 ---
-title: "Terraform"
-date: 2026-01-15T16:30:02Z
-draft: false
+title: "TERRAFORM"
 ---
 
----
-title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
-draft: false
----
+# Terraform
 
-## Notes
-
-## Important Commands
-
-## Examples
-
-## References
+Welcome to the Terraform section.
