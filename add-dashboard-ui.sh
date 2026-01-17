@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 set -e
 
-echo "FORCING Hugo dashboard reset..."
+echo "Applying FINAL correct Hugo homepage override..."
 
-# Go to project root safety check
+# Safety check
 if [ ! -f "hugo.toml" ]; then
-  echo "ERROR: Not in Hugo root directory!"
+  echo "ERROR: Run this in Hugo root directory"
   exit 1
 fi
 
-# Remove public cache
+# Clear public cache
 rm -rf public
 
-# Remove all previous dashboard styles
-rm -f static/css/dashboard*.css
+# Create dirs
+mkdir -p static/css layouts/partials layouts/_default
 
-# Overwrite CSS
+# Clean dashboard CSS
 cat > static/css/dashboard-clean.css <<'EOF'
 .dashboard-grid {
   display: grid;
@@ -50,14 +50,13 @@ cat > static/css/dashboard-clean.css <<'EOF'
 }
 EOF
 
-# Force head injection
-mkdir -p layouts/partials
+# Hook CSS into PaperMod
 cat > layouts/partials/extend_head.html <<'EOF'
 <link rel="stylesheet" href="/css/dashboard-clean.css">
 EOF
 
-# FORCE homepage layout
-cat > layouts/index.html <<'EOF'
+# THIS is the correct homepage override
+cat > layouts/_default/home.html <<'EOF'
 {{ define "main" }}
 <div class="page-header">
   <h1>DevOps Knowledge Hub</h1>
@@ -101,8 +100,9 @@ cat > layouts/index.html <<'EOF'
 {{ end }}
 EOF
 
-echo "FORCE reset complete."
+echo "DONE."
+echo ""
 echo "Now run:"
 echo "hugo server --disableFastRender"
-echo "Then HARD refresh: Ctrl+Shift+R"
+echo "Then HARD refresh: Ctrl + Shift + R"
 
