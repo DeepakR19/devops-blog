@@ -1,81 +1,64 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Applying FINAL FIXED DevOps Dashboard UI..."
+echo "Applying SAFE DevOps dashboard UI (PaperMod compatible)..."
 
 mkdir -p static/css static/js layouts/partials
 
 # =========================
 # CSS
 # =========================
-cat > static/css/dashboard-final-fixed.css <<'EOF'
-/* Hide PaperMod's theme toggle & header conflicts */
-.theme-toggle, .top-link, header, .nav {
-  display: none !important;
-}
-
-/* Dashboard variables */
-:root {
-  --dash-bg: var(--theme);
-  --dash-card: var(--entry);
-  --dash-border: var(--border);
-  --dash-text: var(--primary);
-  --dash-muted: var(--secondary);
-  --dash-accent: var(--link-color);
-}
-
-/* Top bar */
+cat > static/css/dashboard-safe.css <<'EOF'
+/* Dashboard topbar */
 .dashboard-topbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
   height: 56px;
-  background: var(--dash-bg);
-  border-bottom: 1px solid var(--dash-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
-  z-index: 10000;
+  background: var(--theme);
+  border-bottom: 1px solid var(--border);
 }
 
 .dashboard-left {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 .dashboard-toggle {
-  font-size: 20px;
   cursor: pointer;
-  margin-right: 1rem;
-  color: var(--dash-text);
+  font-size: 20px;
 }
 
 .dashboard-brand {
   font-weight: 600;
-  color: var(--dash-text);
 }
 
-.theme-btn {
+.dashboard-theme-btn {
   cursor: pointer;
-  border: 1px solid var(--dash-border);
+  border: 1px solid var(--border);
   padding: 4px 10px;
   border-radius: 8px;
-  background: var(--dash-card);
-  color: var(--dash-text);
+  background: var(--entry);
 }
 
-/* Sidebar */
+/* Sidebar (non-destructive) */
 .dashboard-sidebar {
   position: fixed;
   top: 56px;
   left: 0;
   bottom: 0;
-  width: 260px;
-  background: var(--dash-bg);
-  border-right: 1px solid var(--dash-border);
+  width: 220px;
   padding: 1rem;
-  transition: transform 0.25s ease;
-  z-index: 9999;
+  background: var(--theme);
+  border-right: 1px solid var(--border);
+  transform: translateX(0);
+  transition: transform 0.2s ease;
+  z-index: 9998;
 }
 
 .dashboard-sidebar.collapsed {
@@ -84,101 +67,83 @@ cat > static/css/dashboard-final-fixed.css <<'EOF'
 
 .dashboard-sidebar a {
   display: block;
-  padding: 0.6rem 0.75rem;
-  border-radius: 8px;
-  color: var(--dash-text);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  color: var(--primary);
   text-decoration: none;
-  margin-bottom: 4px;
 }
 
 .dashboard-sidebar a:hover {
-  background: var(--dash-card);
+  background: var(--entry);
 }
 
-/* Main content fix */
-.dashboard-main {
-  margin-top: 56px;
-  margin-left: 260px;
-  padding: 2rem;
-  transition: margin-left 0.25s ease;
-  max-width: 100%;
+/* Content offset (non-destructive) */
+body.dashboard-active main {
+  margin-left: 220px;
+  transition: margin-left 0.2s ease;
 }
 
-.dashboard-main.full {
+body.dashboard-active.sidebar-collapsed main {
   margin-left: 0;
-}
-
-/* Remove PaperMod width limits */
-.main {
-  max-width: 100% !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
 }
 EOF
 
 # =========================
 # JS
 # =========================
-cat > static/js/dashboard-final-fixed.js <<'EOF'
-(function () {
-  function applyTheme() {
-    const pref = localStorage.getItem("pref-theme");
-    if (pref === "dark") {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
+cat > static/js/dashboard-safe.js <<'EOF'
+document.addEventListener("DOMContentLoaded", function () {
+  const sidebarToggle = document.getElementById("dash-toggle");
+  const sidebar = document.getElementById("dash-sidebar");
+  const themeBtn = document.getElementById("dash-theme-btn");
+
+  document.body.classList.add("dashboard-active");
+
+  if (sidebarToggle && sidebar) {
+    sidebarToggle.addEventListener("click", function () {
+      sidebar.classList.toggle("collapsed");
+      document.body.classList.toggle("sidebar-collapsed");
+    });
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    applyTheme();
+  // Hook into PaperMod's real theme toggle
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      const realToggle = document.querySelector(".theme-toggle");
+      if (realToggle) {
+        realToggle.click(); // Let PaperMod handle everything
+      }
+    });
+  }
 
-    const toggle = document.getElementById("dash-toggle");
-    const sidebar = document.getElementById("dash-sidebar");
-    const main = document.getElementById("dash-main");
-    const themeBtn = document.getElementById("theme-btn");
-
-    if (toggle && sidebar && main) {
-      toggle.onclick = () => {
-        sidebar.classList.toggle("collapsed");
-        main.classList.toggle("full");
-      };
-    }
-
-    if (themeBtn) {
-      themeBtn.onclick = () => {
-        const isDark = document.body.classList.contains("dark");
-        if (isDark) {
-          document.body.classList.remove("dark");
-          localStorage.setItem("pref-theme", "light");
-        } else {
-          document.body.classList.add("dark");
-          localStorage.setItem("pref-theme", "dark");
-        }
-      };
-    }
-  });
-})();
+  // Hide original toggle visually (but keep it functional)
+  const originalToggle = document.querySelector(".theme-toggle");
+  if (originalToggle) {
+    originalToggle.style.opacity = "0";
+    originalToggle.style.pointerEvents = "none";
+    originalToggle.style.height = "0";
+  }
+});
 EOF
 
 # =========================
 # Head Hook
 # =========================
 cat > layouts/partials/extend_head.html <<'EOF'
-<link rel="stylesheet" href="/css/dashboard-final-fixed.css">
-<script defer src="/js/dashboard-final-fixed.js"></script>
+<link rel="stylesheet" href="/css/dashboard-safe.css">
+<script defer src="/js/dashboard-safe.js"></script>
 EOF
 
 # =========================
-# Footer Hook (Safe Injection)
+# Body Hook
 # =========================
-cat > layouts/partials/extend_footer.html <<'EOF'
+cat > layouts/partials/extend_body.html <<'EOF'
 <div class="dashboard-topbar">
   <div class="dashboard-left">
     <span id="dash-toggle" class="dashboard-toggle">☰</span>
-    <div class="dashboard-brand">DevOps Dashboard</div>
+    <span class="dashboard-brand">DevOps Dashboard</span>
   </div>
-  <button id="theme-btn" class="theme-btn">🌓</button>
+  <button id="dash-theme-btn" class="dashboard-theme-btn">🌓</button>
 </div>
 
 <div id="dash-sidebar" class="dashboard-sidebar">
@@ -186,20 +151,10 @@ cat > layouts/partials/extend_footer.html <<'EOF'
   <a href="/posts/">📝 Notes</a>
   <a href="/tags/">🏷 Tags</a>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const main = document.querySelector("main");
-  if (main) {
-    main.id = "dash-main";
-    main.classList.add("dashboard-main");
-  }
-});
-</script>
 EOF
 
-echo "✅ FINAL FIX APPLIED"
-echo "Run:"
+echo "✅ Safe dashboard UI applied"
+echo "Now run:"
 echo "hugo server --disableFastRender"
-echo "Then HARD refresh: Ctrl + Shift + R"
+echo "Then hard refresh: Ctrl + Shift + R"
 
