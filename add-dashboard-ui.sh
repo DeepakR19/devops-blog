@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 set -e
 
-echo "=== FINAL STABLE RESET + DASHBOARD SETUP ==="
+echo "FORCING Hugo dashboard reset..."
 
-# 1. Remove all previous broken overrides
-rm -f static/css/dashboard-*.css
-rm -f static/js/dashboard-*.js
-rm -f layouts/partials/extend_head.html
-rm -f layouts/partials/extend_body.html
-rm -f layouts/partials/extend_footer.html
-rm -f layouts/_default/baseof.html
+# Go to project root safety check
+if [ ! -f "hugo.toml" ]; then
+  echo "ERROR: Not in Hugo root directory!"
+  exit 1
+fi
 
-# 2. Ensure folders exist
-mkdir -p static/css layouts/partials
+# Remove public cache
+rm -rf public
 
-# 3. Clean dashboard CSS (PaperMod safe)
+# Remove all previous dashboard styles
+rm -f static/css/dashboard*.css
+
+# Overwrite CSS
 cat > static/css/dashboard-clean.css <<'EOF'
 .dashboard-grid {
   display: grid;
@@ -49,12 +50,13 @@ cat > static/css/dashboard-clean.css <<'EOF'
 }
 EOF
 
-# 4. Hook CSS safely
+# Force head injection
+mkdir -p layouts/partials
 cat > layouts/partials/extend_head.html <<'EOF'
 <link rel="stylesheet" href="/css/dashboard-clean.css">
 EOF
 
-# 5. Create clean dashboard homepage
+# FORCE homepage layout
 cat > layouts/index.html <<'EOF'
 {{ define "main" }}
 <div class="page-header">
@@ -99,11 +101,8 @@ cat > layouts/index.html <<'EOF'
 {{ end }}
 EOF
 
-echo "=== DONE ==="
-echo ""
+echo "FORCE reset complete."
 echo "Now run:"
-echo "  hugo server --disableFastRender"
-echo ""
-echo "Then HARD refresh:"
-echo "  Ctrl + Shift + R"
+echo "hugo server --disableFastRender"
+echo "Then HARD refresh: Ctrl+Shift+R"
 
