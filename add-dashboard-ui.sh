@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Starting clean rebuild for PaperMod (card-style dashboard)..."
+echo "Resetting to stable PaperMod + adding clean dashboard..."
 
-# 1) Remove previously injected overrides (safe cleanup)
+# 1. Remove all previous dashboard hacks
 rm -f static/css/dashboard-*.css
 rm -f static/js/dashboard-*.js
 rm -f layouts/partials/extend_head.html
 rm -f layouts/partials/extend_body.html
 rm -f layouts/partials/extend_footer.html
+rm -f layouts/_default/baseof.html
 
-# 2) Create directories if missing
-mkdir -p static/css layouts/_default layouts/partials
+# 2. Create directories if needed
+mkdir -p static/css layouts
 
-# 3) Add clean dashboard CSS (PaperMod-friendly)
+# 3. Add clean dashboard CSS (PaperMod-safe)
 cat > static/css/dashboard-clean.css <<'EOF'
-/* Card-style dashboard home */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.25rem;
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
@@ -28,38 +28,33 @@ cat > static/css/dashboard-clean.css <<'EOF'
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1.25rem;
-  transition: transform .15s ease, box-shadow .15s ease;
-  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-decoration: none;
+  color: var(--primary);
 }
 
 .dashboard-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
 .dashboard-card h3 {
-  margin: 0 0 .25rem 0;
+  margin: 0 0 0.25rem 0;
 }
 
 .dashboard-card p {
   color: var(--secondary);
-  font-size: .95rem;
+  font-size: 0.95rem;
 }
-
-/* Fix inner page spacing */
-.post-content {
-  max-width: 1000px;
-}
-
-/* Do NOT break PaperMod header or layout */
 EOF
 
-# 4) Hook CSS safely into PaperMod
+# 4. Hook CSS into PaperMod safely
+mkdir -p layouts/partials
 cat > layouts/partials/extend_head.html <<'EOF'
 <link rel="stylesheet" href="/css/dashboard-clean.css">
 EOF
 
-# 5) Create a clean dashboard homepage layout
+# 5. Create clean homepage dashboard
 cat > layouts/index.html <<'EOF'
 {{ define "main" }}
 <div class="page-header">
@@ -104,9 +99,9 @@ cat > layouts/index.html <<'EOF'
 {{ end }}
 EOF
 
-echo "✅ Clean rebuild applied."
+echo "✅ Stable reset + clean dashboard applied"
 echo ""
-echo "Next steps:"
-echo "1) hugo server --disableFastRender"
-echo "2) Hard refresh (Ctrl+Shift+R)"
+echo "Now run:"
+echo "hugo server --disableFastRender"
+echo "Then hard refresh: Ctrl + Shift + R"
 

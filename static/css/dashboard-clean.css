@@ -1,8 +1,7 @@
-/* Card-style dashboard home */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.25rem;
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
@@ -11,27 +10,21 @@
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1.25rem;
-  transition: transform .15s ease, box-shadow .15s ease;
-  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-decoration: none;
+  color: var(--primary);
 }
 
 .dashboard-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
 .dashboard-card h3 {
-  margin: 0 0 .25rem 0;
+  margin: 0 0 0.25rem 0;
 }
 
 .dashboard-card p {
   color: var(--secondary);
-  font-size: .95rem;
+  font-size: 0.95rem;
 }
-
-/* Fix inner page spacing */
-.post-content {
-  max-width: 1000px;
-}
-
-/* Do NOT break PaperMod header or layout */
