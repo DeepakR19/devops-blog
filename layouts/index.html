@@ -1,15 +1,100 @@
 {{ define "main" }}
-<h1>DevOps Dashboard</h1>
-<p>Select a section:</p>
 
-<div class="card-grid">
-  <a class="card" href="/linux/">🐧 Linux</a>
-  <a class="card" href="/git/">🌱 Git</a>
-  <a class="card" href="/cicd/">🔁 CI/CD</a>
-  <a class="card" href="/cloud/">☁️ Cloud</a>
-  <a class="card" href="/docker/">🐳 Docker</a>
-  <a class="card" href="/kubernetes/">☸ Kubernetes</a>
-  <a class="card" href="/terraform/">🏗 Terraform</a>
-  <a class="card" href="/ansible/">⚙️ Ansible</a>
-</div>
+<section class="hero">
+  <h1 class="hero-title">DevOps Knowledge Hub</h1>
+  <p class="hero-subtitle">
+    Real-world Linux, Docker, Kubernetes, Cloud & CI/CD — documented as I learn.
+  </p>
+
+  <div class="hero-actions">
+    <a href="/linux/" class="btn primary">Start Learning</a>
+    <a href="https://github.com/" class="btn secondary">GitHub</a>
+  </div>
+</section>
+
+<section class="hero-divider"></section>
+
+<section class="card-section">
+  <div class="card-grid modern">
+    <a href="/linux/" class="card modern">
+      <div class="card-icon">🐧</div>
+      <div class="card-title">Linux</div>
+      <div class="card-desc">Commands, internals, debugging</div>
+    </a>
+
+    <a href="/docker/" class="card modern">
+      <div class="card-icon">🐳</div>
+      <div class="card-title">Docker</div>
+      <div class="card-desc">Containers, images, networking</div>
+    </a>
+
+    <a href="/kubernetes/" class="card modern">
+      <div class="card-icon">☸</div>
+      <div class="card-title">Kubernetes</div>
+      <div class="card-desc">Pods, services, scaling</div>
+    </a>
+
+    <a href="/cloud/" class="card modern">
+      <div class="card-icon">☁️</div>
+      <div class="card-title">Cloud</div>
+      <div class="card-desc">AWS, Azure, GCP</div>
+    </a>
+
+    <a href="/cicd/" class="card modern">
+      <div class="card-icon">🔁</div>
+      <div class="card-title">CI/CD</div>
+      <div class="card-desc">Pipelines & automation</div>
+    </a>
+
+    <a href="/terraform/" class="card modern">
+      <div class="card-icon">🏗</div>
+      <div class="card-title">Terraform</div>
+      <div class="card-desc">Infrastructure as Code</div>
+    </a>
+  </div>
+</section>
+
+<section class="identity-section">
+  <div class="identity-inner">
+    <h2>This is not a tutorial site.</h2>
+    <p>This is my DevOps brain — organized.</p>
+    <p>
+      Everything here comes from real problems, real debugging, real mistakes,
+      and real fixes. I document what I learn so I never forget — and so others
+      can learn from it too.
+    </p>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-number">100+</div>
+      <div class="stat-label">Commands</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">50+</div>
+      <div class="stat-label">Guides</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">20+</div>
+      <div class="stat-label">Scenarios</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">Weekly</div>
+      <div class="stat-label">Updates</div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <h2>Start exploring</h2>
+  <p>Pick a topic and dive in.</p>
+  <div class="hero-actions">
+    <a href="/linux/" class="btn primary">Linux</a>
+    <a href="/docker/" class="btn secondary">Docker</a>
+    <a href="/kubernetes/" class="btn secondary">Kubernetes</a>
+  </div>
+</section>
+
 {{ end }}

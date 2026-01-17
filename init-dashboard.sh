@@ -1,102 +1,172 @@
 #!/bin/bash
 set -e
 
-echo "Installing Phase 4E: Command blocks with copy button"
+echo "Installing Homepage Phase H4: Polish + Stats + CTA"
 
 # ---------------------------
-# Update CSS for command blocks
+# Update homepage layout
+# ---------------------------
+cat > layouts/index.html << 'EOF'
+{{ define "main" }}
+
+<section class="hero">
+  <h1 class="hero-title">DevOps Knowledge Hub</h1>
+  <p class="hero-subtitle">
+    Real-world Linux, Docker, Kubernetes, Cloud & CI/CD — documented as I learn.
+  </p>
+
+  <div class="hero-actions">
+    <a href="/linux/" class="btn primary">Start Learning</a>
+    <a href="https://github.com/" class="btn secondary">GitHub</a>
+  </div>
+</section>
+
+<section class="hero-divider"></section>
+
+<section class="card-section">
+  <div class="card-grid modern">
+    <a href="/linux/" class="card modern">
+      <div class="card-icon">🐧</div>
+      <div class="card-title">Linux</div>
+      <div class="card-desc">Commands, internals, debugging</div>
+    </a>
+
+    <a href="/docker/" class="card modern">
+      <div class="card-icon">🐳</div>
+      <div class="card-title">Docker</div>
+      <div class="card-desc">Containers, images, networking</div>
+    </a>
+
+    <a href="/kubernetes/" class="card modern">
+      <div class="card-icon">☸</div>
+      <div class="card-title">Kubernetes</div>
+      <div class="card-desc">Pods, services, scaling</div>
+    </a>
+
+    <a href="/cloud/" class="card modern">
+      <div class="card-icon">☁️</div>
+      <div class="card-title">Cloud</div>
+      <div class="card-desc">AWS, Azure, GCP</div>
+    </a>
+
+    <a href="/cicd/" class="card modern">
+      <div class="card-icon">🔁</div>
+      <div class="card-title">CI/CD</div>
+      <div class="card-desc">Pipelines & automation</div>
+    </a>
+
+    <a href="/terraform/" class="card modern">
+      <div class="card-icon">🏗</div>
+      <div class="card-title">Terraform</div>
+      <div class="card-desc">Infrastructure as Code</div>
+    </a>
+  </div>
+</section>
+
+<section class="identity-section">
+  <div class="identity-inner">
+    <h2>This is not a tutorial site.</h2>
+    <p>This is my DevOps brain — organized.</p>
+    <p>
+      Everything here comes from real problems, real debugging, real mistakes,
+      and real fixes. I document what I learn so I never forget — and so others
+      can learn from it too.
+    </p>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-number">100+</div>
+      <div class="stat-label">Commands</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">50+</div>
+      <div class="stat-label">Guides</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">20+</div>
+      <div class="stat-label">Scenarios</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">Weekly</div>
+      <div class="stat-label">Updates</div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <h2>Start exploring</h2>
+  <p>Pick a topic and dive in.</p>
+  <div class="hero-actions">
+    <a href="/linux/" class="btn primary">Linux</a>
+    <a href="/docker/" class="btn secondary">Docker</a>
+    <a href="/kubernetes/" class="btn secondary">Kubernetes</a>
+  </div>
+</section>
+
+{{ end }}
+EOF
+
+# ---------------------------
+# Polish CSS
 # ---------------------------
 cat >> static/css/main.css << 'EOF'
 
-/* Phase 4E: Command blocks */
-pre {
-  position: relative;
-  padding: 16px;
-  border-radius: 12px;
-  background: rgba(0,0,0,0.05);
-  overflow-x: auto;
+/* Homepage H4 — Stats */
+
+.stats-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 120px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 24px;
+  text-align: center;
+}
+
+.stat {
+  background: var(--card-bg);
   border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-body.dark pre {
-  background: rgba(255,255,255,0.05);
+.stat-number {
+  font-size: 1.6rem;
+  font-weight: 700;
 }
 
-.copy-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  padding: 4px 8px;
-  font-size: 0.75rem;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text);
-  cursor: pointer;
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.7;
 }
 
-.copy-btn:hover {
-  opacity: 0.8;
+/* Final CTA */
+
+.final-cta {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px 120px;
+  text-align: center;
+}
+
+.final-cta h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.final-cta p {
+  opacity: 0.7;
+  margin-bottom: 24px;
 }
 EOF
 
-# ---------------------------
-# Update JS: auto-add copy buttons
-# ---------------------------
-cat > static/js/main.js << 'EOF'
-document.addEventListener("DOMContentLoaded", function () {
-  const themeToggle = document.getElementById("themeToggle");
-  const searchInput = document.getElementById("searchInput");
-  const navLinks = document.querySelectorAll(".nav-link");
-
-  // Theme persistence
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark");
-  }
-
-  themeToggle?.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-    const mode = document.body.classList.contains("dark") ? "dark" : "light";
-    localStorage.setItem("theme", mode);
-  });
-
-  // Active link highlight
-  const currentPath = window.location.pathname;
-  navLinks.forEach(link => {
-    const href = link.getAttribute("href");
-    if (currentPath.startsWith(href)) {
-      link.classList.add("active");
-    }
-  });
-
-  // Search filter
-  searchInput?.addEventListener("input", function () {
-    const query = this.value.toLowerCase();
-    navLinks.forEach(link => {
-      const text = link.innerText.toLowerCase();
-      link.style.display = text.includes(query) ? "inline-flex" : "none";
-    });
-  });
-
-  // 📋 Copy buttons for code blocks
-  document.querySelectorAll("pre").forEach(pre => {
-    const btn = document.createElement("button");
-    btn.innerText = "Copy";
-    btn.className = "copy-btn";
-
-    btn.addEventListener("click", () => {
-      const code = pre.innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        btn.innerText = "Copied!";
-        setTimeout(() => btn.innerText = "Copy", 1200);
-      });
-    });
-
-    pre.appendChild(btn);
-  });
-});
-EOF
-
-echo "Phase 4E installed."
+echo "Homepage Phase H4 installed."
 echo "Restart Hugo: hugo server --disableFastRender"
