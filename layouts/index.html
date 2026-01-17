@@ -1,17 +1,41 @@
 {{ define "main" }}
+<div class="page-header">
+  <h1>DevOps Knowledge Hub</h1>
+  <p>Notes, references, and real-world DevOps learning.</p>
+</div>
 
-<section class="hero">
-  <h1 class="hero-title">DevOps Knowledge Hub</h1>
-  <p class="hero-subtitle">Notes, references, and real-world DevOps learning.</p>
-</section>
-
-<section class="cards-grid">
-  {{ range site.Menus.main }}
-    <a href="{{ .URL | absLangURL }}" class="home-card">
-      <h3>{{ .Name }}</h3>
-      <p>Explore {{ .Name }} notes</p>
-    </a>
-  {{ end }}
-</section>
-
+<div class="dashboard-grid">
+  <a class="dashboard-card" href="/linux/">
+    <h3>🐧 Linux</h3>
+    <p>Explore Linux notes</p>
+  </a>
+  <a class="dashboard-card" href="/git/">
+    <h3>🌱 Git</h3>
+    <p>Explore Git notes</p>
+  </a>
+  <a class="dashboard-card" href="/cicd/">
+    <h3>🔁 CI/CD</h3>
+    <p>Explore CI/CD notes</p>
+  </a>
+  <a class="dashboard-card" href="/cloud/">
+    <h3>☁️ Cloud</h3>
+    <p>Explore Cloud notes</p>
+  </a>
+  <a class="dashboard-card" href="/docker/">
+    <h3>🐳 Docker</h3>
+    <p>Explore Docker notes</p>
+  </a>
+  <a class="dashboard-card" href="/kubernetes/">
+    <h3>☸️ Kubernetes</h3>
+    <p>Explore Kubernetes notes</p>
+  </a>
+  <a class="dashboard-card" href="/terraform/">
+    <h3>🏗 Terraform</h3>
+    <p>Explore Terraform notes</p>
+  </a>
+  <a class="dashboard-card" href="/ansible/">
+    <h3>⚙️ Ansible</h3>
+    <p>Explore Ansible notes</p>
+  </a>
+</div>
 {{ end }}

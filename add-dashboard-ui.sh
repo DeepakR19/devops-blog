@@ -1,160 +1,112 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Applying SAFE DevOps dashboard UI (PaperMod compatible)..."
+echo "Starting clean rebuild for PaperMod (card-style dashboard)..."
 
-mkdir -p static/css static/js layouts/partials
+# 1) Remove previously injected overrides (safe cleanup)
+rm -f static/css/dashboard-*.css
+rm -f static/js/dashboard-*.js
+rm -f layouts/partials/extend_head.html
+rm -f layouts/partials/extend_body.html
+rm -f layouts/partials/extend_footer.html
 
-# =========================
-# CSS
-# =========================
-cat > static/css/dashboard-safe.css <<'EOF'
-/* Dashboard topbar */
-.dashboard-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 9999;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1rem;
-  background: var(--theme);
-  border-bottom: 1px solid var(--border);
+# 2) Create directories if missing
+mkdir -p static/css layouts/_default layouts/partials
+
+# 3) Add clean dashboard CSS (PaperMod-friendly)
+cat > static/css/dashboard-clean.css <<'EOF'
+/* Card-style dashboard home */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
 }
 
-.dashboard-left {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.dashboard-toggle {
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.dashboard-brand {
-  font-weight: 600;
-}
-
-.dashboard-theme-btn {
-  cursor: pointer;
+.dashboard-card {
+  background: var(--entry);
   border: 1px solid var(--border);
-  padding: 4px 10px;
-  border-radius: 8px;
-  background: var(--entry);
+  border-radius: 14px;
+  padding: 1.25rem;
+  transition: transform .15s ease, box-shadow .15s ease;
+  cursor: pointer;
 }
 
-/* Sidebar (non-destructive) */
-.dashboard-sidebar {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  bottom: 0;
-  width: 220px;
-  padding: 1rem;
-  background: var(--theme);
-  border-right: 1px solid var(--border);
-  transform: translateX(0);
-  transition: transform 0.2s ease;
-  z-index: 9998;
+.dashboard-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
 }
 
-.dashboard-sidebar.collapsed {
-  transform: translateX(-100%);
+.dashboard-card h3 {
+  margin: 0 0 .25rem 0;
 }
 
-.dashboard-sidebar a {
-  display: block;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  color: var(--primary);
-  text-decoration: none;
+.dashboard-card p {
+  color: var(--secondary);
+  font-size: .95rem;
 }
 
-.dashboard-sidebar a:hover {
-  background: var(--entry);
+/* Fix inner page spacing */
+.post-content {
+  max-width: 1000px;
 }
 
-/* Content offset (non-destructive) */
-body.dashboard-active main {
-  margin-left: 220px;
-  transition: margin-left 0.2s ease;
-}
-
-body.dashboard-active.sidebar-collapsed main {
-  margin-left: 0;
-}
+/* Do NOT break PaperMod header or layout */
 EOF
 
-# =========================
-# JS
-# =========================
-cat > static/js/dashboard-safe.js <<'EOF'
-document.addEventListener("DOMContentLoaded", function () {
-  const sidebarToggle = document.getElementById("dash-toggle");
-  const sidebar = document.getElementById("dash-sidebar");
-  const themeBtn = document.getElementById("dash-theme-btn");
-
-  document.body.classList.add("dashboard-active");
-
-  if (sidebarToggle && sidebar) {
-    sidebarToggle.addEventListener("click", function () {
-      sidebar.classList.toggle("collapsed");
-      document.body.classList.toggle("sidebar-collapsed");
-    });
-  }
-
-  // Hook into PaperMod's real theme toggle
-  if (themeBtn) {
-    themeBtn.addEventListener("click", function () {
-      const realToggle = document.querySelector(".theme-toggle");
-      if (realToggle) {
-        realToggle.click(); // Let PaperMod handle everything
-      }
-    });
-  }
-
-  // Hide original toggle visually (but keep it functional)
-  const originalToggle = document.querySelector(".theme-toggle");
-  if (originalToggle) {
-    originalToggle.style.opacity = "0";
-    originalToggle.style.pointerEvents = "none";
-    originalToggle.style.height = "0";
-  }
-});
-EOF
-
-# =========================
-# Head Hook
-# =========================
+# 4) Hook CSS safely into PaperMod
 cat > layouts/partials/extend_head.html <<'EOF'
-<link rel="stylesheet" href="/css/dashboard-safe.css">
-<script defer src="/js/dashboard-safe.js"></script>
+<link rel="stylesheet" href="/css/dashboard-clean.css">
 EOF
 
-# =========================
-# Body Hook
-# =========================
-cat > layouts/partials/extend_body.html <<'EOF'
-<div class="dashboard-topbar">
-  <div class="dashboard-left">
-    <span id="dash-toggle" class="dashboard-toggle">☰</span>
-    <span class="dashboard-brand">DevOps Dashboard</span>
-  </div>
-  <button id="dash-theme-btn" class="dashboard-theme-btn">🌓</button>
+# 5) Create a clean dashboard homepage layout
+cat > layouts/index.html <<'EOF'
+{{ define "main" }}
+<div class="page-header">
+  <h1>DevOps Knowledge Hub</h1>
+  <p>Notes, references, and real-world DevOps learning.</p>
 </div>
 
-<div id="dash-sidebar" class="dashboard-sidebar">
-  <a href="/">🏠 Home</a>
-  <a href="/posts/">📝 Notes</a>
-  <a href="/tags/">🏷 Tags</a>
+<div class="dashboard-grid">
+  <a class="dashboard-card" href="/linux/">
+    <h3>🐧 Linux</h3>
+    <p>Explore Linux notes</p>
+  </a>
+  <a class="dashboard-card" href="/git/">
+    <h3>🌱 Git</h3>
+    <p>Explore Git notes</p>
+  </a>
+  <a class="dashboard-card" href="/cicd/">
+    <h3>🔁 CI/CD</h3>
+    <p>Explore CI/CD notes</p>
+  </a>
+  <a class="dashboard-card" href="/cloud/">
+    <h3>☁️ Cloud</h3>
+    <p>Explore Cloud notes</p>
+  </a>
+  <a class="dashboard-card" href="/docker/">
+    <h3>🐳 Docker</h3>
+    <p>Explore Docker notes</p>
+  </a>
+  <a class="dashboard-card" href="/kubernetes/">
+    <h3>☸️ Kubernetes</h3>
+    <p>Explore Kubernetes notes</p>
+  </a>
+  <a class="dashboard-card" href="/terraform/">
+    <h3>🏗 Terraform</h3>
+    <p>Explore Terraform notes</p>
+  </a>
+  <a class="dashboard-card" href="/ansible/">
+    <h3>⚙️ Ansible</h3>
+    <p>Explore Ansible notes</p>
+  </a>
 </div>
+{{ end }}
 EOF
 
-echo "✅ Safe dashboard UI applied"
-echo "Now run:"
-echo "hugo server --disableFastRender"
-echo "Then hard refresh: Ctrl + Shift + R"
+echo "✅ Clean rebuild applied."
+echo ""
+echo "Next steps:"
+echo "1) hugo server --disableFastRender"
+echo "2) Hard refresh (Ctrl+Shift+R)"
 
