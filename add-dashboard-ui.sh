@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Upgrading UI to Premium Developer Dashboard..."
+echo "Applying Developer Dashboard UI for PaperMod..."
 
+# Ensure folders exist
 mkdir -p static/css static/js layouts/partials
 
+# ---------------- CSS ----------------
 cat > static/css/dashboard-premium.css <<'EOF'
-/* Premium Dashboard Styles */
 :root {
   --dash-bg: #0f172a;
   --dash-card: #111827;
@@ -25,7 +26,7 @@ cat > static/css/dashboard-premium.css <<'EOF'
   display: flex;
   align-items: center;
   padding: 0 1.2rem;
-  z-index: 1000;
+  z-index: 10000;
 }
 
 .dashboard-brand {
@@ -49,7 +50,7 @@ cat > static/css/dashboard-premium.css <<'EOF'
   border-right: 1px solid var(--dash-border);
   padding: 1rem;
   transition: transform .25s ease;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .dashboard-sidebar.collapsed {
@@ -88,17 +89,9 @@ cat > static/css/dashboard-premium.css <<'EOF'
 .dashboard-main.full {
   margin-left: 0;
 }
-
-.dashboard-card {
-  background: var(--dash-card);
-  border: 1px solid var(--dash-border);
-  border-radius: 12px;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-  color: var(--dash-text);
-}
 EOF
 
+# ---------------- JS ----------------
 cat > static/js/dashboard-premium.js <<'EOF'
 document.addEventListener("DOMContentLoaded", function () {
   const toggle = document.getElementById("dash-toggle");
@@ -114,10 +107,14 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 EOF
 
-cat > layouts/partials/dashboard-premium.html <<'EOF'
+# ---------------- PaperMod Hook: HEAD ----------------
+cat > layouts/partials/extend_head.html <<'EOF'
 <link rel="stylesheet" href="/css/dashboard-premium.css">
 <script defer src="/js/dashboard-premium.js"></script>
+EOF
 
+# ---------------- PaperMod Hook: BODY ----------------
+cat > layouts/partials/extend_body.html <<'EOF'
 <div class="dashboard-topbar">
   <span id="dash-toggle" class="dashboard-toggle">☰</span>
   <div class="dashboard-brand">DevOps Dashboard</div>
@@ -142,13 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 EOF
 
-BASE="layouts/_default/baseof.html"
-if grep -q "dashboard-premium" "$BASE"; then
-  echo "Premium dashboard already injected."
-else
-  sed -i '/<body/ a {{ partial "dashboard-premium.html" . }}' "$BASE"
-  echo "Injected premium dashboard into base layout."
-fi
-
-echo "Upgrade complete. Run: hugo server"
+echo "✅ Dashboard UI applied successfully."
+echo "Now run: hugo server --disableFastRender"
+echo "Then hard refresh: Ctrl + Shift + R"
 

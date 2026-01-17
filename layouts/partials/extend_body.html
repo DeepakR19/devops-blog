@@ -1,0 +1,22 @@
+<div class="dashboard-topbar">
+  <span id="dash-toggle" class="dashboard-toggle">☰</span>
+  <div class="dashboard-brand">DevOps Dashboard</div>
+</div>
+
+<div id="dash-sidebar" class="dashboard-sidebar">
+  <ul>
+    <li><a href="/">🏠 Home</a></li>
+    <li><a href="/posts/">📝 Notes</a></li>
+    <li><a href="/tags/">🏷 Tags</a></li>
+  </ul>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const main = document.querySelector("main");
+  if (main) {
+    main.id = "dash-main";
+    main.classList.add("dashboard-main");
+  }
+});
+</script>
