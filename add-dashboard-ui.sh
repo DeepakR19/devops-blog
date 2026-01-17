@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Applying FINAL DevOps Dashboard UI..."
+echo "Applying VERIFIED DevOps Dashboard UI..."
 
 mkdir -p static/css static/js layouts/partials
 
 # ---------------- CSS ----------------
-cat > static/css/dashboard-final.css <<'EOF'
+cat > static/css/dashboard-correct.css <<'EOF'
 :root {
   --dash-bg: var(--theme);
   --dash-card: var(--entry);
@@ -106,44 +106,56 @@ cat > static/css/dashboard-final.css <<'EOF'
 EOF
 
 # ---------------- JS ----------------
-cat > static/js/dashboard-final.js <<'EOF'
-document.addEventListener("DOMContentLoaded", function () {
-  const toggle = document.getElementById("dash-toggle");
-  const sidebar = document.getElementById("dash-sidebar");
-  const main = document.getElementById("dash-main");
-  const themeBtn = document.getElementById("theme-toggle-btn");
-
-  if (toggle && sidebar && main) {
-    toggle.addEventListener("click", function () {
-      sidebar.classList.toggle("collapsed");
-      main.classList.toggle("full");
-    });
+cat > static/js/dashboard-correct.js <<'EOF'
+(function () {
+  function applyThemeFromStorage() {
+    const pref = localStorage.getItem("pref-theme");
+    if (pref === "dark") {
+      document.body.classList.add("dark");
+    } else if (pref === "light") {
+      document.body.classList.remove("dark");
+    }
   }
 
-  // PaperMod-compatible theme toggle
-  if (themeBtn) {
-    themeBtn.addEventListener("click", function () {
-      const isDark = document.body.classList.contains("dark");
-      if (isDark) {
-        document.body.classList.remove("dark");
-        localStorage.setItem("pref-theme", "light");
-      } else {
-        document.body.classList.add("dark");
-        localStorage.setItem("pref-theme", "dark");
-      }
-    });
-  }
-});
+  document.addEventListener("DOMContentLoaded", function () {
+    applyThemeFromStorage();
+
+    const toggle = document.getElementById("dash-toggle");
+    const sidebar = document.getElementById("dash-sidebar");
+    const main = document.getElementById("dash-main");
+    const themeBtn = document.getElementById("theme-toggle-btn");
+
+    if (toggle && sidebar && main) {
+      toggle.addEventListener("click", function () {
+        sidebar.classList.toggle("collapsed");
+        main.classList.toggle("full");
+      });
+    }
+
+    if (themeBtn) {
+      themeBtn.addEventListener("click", function () {
+        const isDark = document.body.classList.contains("dark");
+        if (isDark) {
+          document.body.classList.remove("dark");
+          localStorage.setItem("pref-theme", "light");
+        } else {
+          document.body.classList.add("dark");
+          localStorage.setItem("pref-theme", "dark");
+        }
+      });
+    }
+  });
+})();
 EOF
 
 # ---------------- HEAD HOOK ----------------
 cat > layouts/partials/extend_head.html <<'EOF'
-<link rel="stylesheet" href="/css/dashboard-final.css">
-<script defer src="/js/dashboard-final.js"></script>
+<link rel="stylesheet" href="/css/dashboard-correct.css">
+<script defer src="/js/dashboard-correct.js"></script>
 EOF
 
-# ---------------- BODY HOOK ----------------
-cat > layouts/partials/extend_body.html <<'EOF'
+# ---------------- FOOTER HOOK (safe for PaperMod) ----------------
+cat > layouts/partials/extend_footer.html <<'EOF'
 <div class="dashboard-topbar">
   <div class="dashboard-left">
     <span id="dash-toggle" class="dashboard-toggle">☰</span>
@@ -169,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 EOF
 
-echo "✅ FINAL Dashboard UI applied."
+echo "✅ Correct dashboard UI applied."
 echo "Now run:"
 echo "hugo server --disableFastRender"
 echo "Then HARD refresh: Ctrl + Shift + R"
