@@ -1,55 +1,55 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Applying Developer Dashboard UI for PaperMod..."
+echo "Applying corrected DevOps dashboard UI..."
 
-# Ensure folders exist
 mkdir -p static/css static/js layouts/partials
 
 # ---------------- CSS ----------------
-cat > static/css/dashboard-premium.css <<'EOF'
+cat > static/css/dashboard-fixed.css <<'EOF'
 :root {
-  --dash-bg: #0f172a;
-  --dash-card: #111827;
-  --dash-border: #1f2937;
-  --dash-text: #e5e7eb;
-  --dash-muted: #9ca3af;
-  --dash-accent: #3b82f6;
+  --dash-bg: var(--theme);
+  --dash-card: var(--entry);
+  --dash-border: var(--border);
+  --dash-text: var(--primary);
+  --dash-muted: var(--secondary);
+  --dash-accent: var(--link-color);
 }
 
 .dashboard-topbar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 60px;
-  background: var(--dash-card);
+  height: 56px;
+  background: var(--dash-bg);
   border-bottom: 1px solid var(--dash-border);
   display: flex;
   align-items: center;
-  padding: 0 1.2rem;
+  padding: 0 1rem;
   z-index: 10000;
+}
+
+.dashboard-toggle {
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 1rem;
+  color: var(--dash-text);
 }
 
 .dashboard-brand {
   font-weight: 600;
-  letter-spacing: 0.3px;
-  color: var(--dash-text);
-}
-
-.dashboard-toggle {
-  margin-right: 1rem;
-  cursor: pointer;
-  font-size: 20px;
   color: var(--dash-text);
 }
 
 .dashboard-sidebar {
   position: fixed;
-  top: 60px; left: 0; bottom: 0;
+  top: 56px;
+  left: 0;
+  bottom: 0;
   width: 260px;
-  background: var(--dash-card);
+  background: var(--dash-bg);
   border-right: 1px solid var(--dash-border);
   padding: 1rem;
-  transition: transform .25s ease;
+  transition: transform 0.25s ease;
   z-index: 9999;
 }
 
@@ -57,42 +57,40 @@ cat > static/css/dashboard-premium.css <<'EOF'
   transform: translateX(-100%);
 }
 
-.dashboard-sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0 0;
-}
-
-.dashboard-sidebar li {
-  margin-bottom: .5rem;
-}
-
 .dashboard-sidebar a {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
   color: var(--dash-text);
   text-decoration: none;
-  padding: .6rem .75rem;
-  display: block;
-  border-radius: 8px;
 }
 
 .dashboard-sidebar a:hover {
-  background: rgba(255,255,255,0.05);
+  background: var(--dash-card);
 }
 
 .dashboard-main {
-  margin-top: 60px;
+  margin-top: 56px;
   margin-left: 260px;
   padding: 2rem;
-  transition: margin-left .25s ease;
+  transition: margin-left 0.25s ease;
+  max-width: 100%;
 }
 
 .dashboard-main.full {
   margin-left: 0;
 }
+
+/* Fix PaperMod container conflicts */
+.main {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 EOF
 
 # ---------------- JS ----------------
-cat > static/js/dashboard-premium.js <<'EOF'
+cat > static/js/dashboard-fixed.js <<'EOF'
 document.addEventListener("DOMContentLoaded", function () {
   const toggle = document.getElementById("dash-toggle");
   const sidebar = document.getElementById("dash-sidebar");
@@ -107,13 +105,13 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 EOF
 
-# ---------------- PaperMod Hook: HEAD ----------------
+# ---------------- HEAD HOOK ----------------
 cat > layouts/partials/extend_head.html <<'EOF'
-<link rel="stylesheet" href="/css/dashboard-premium.css">
-<script defer src="/js/dashboard-premium.js"></script>
+<link rel="stylesheet" href="/css/dashboard-fixed.css">
+<script defer src="/js/dashboard-fixed.js"></script>
 EOF
 
-# ---------------- PaperMod Hook: BODY ----------------
+# ---------------- BODY HOOK ----------------
 cat > layouts/partials/extend_body.html <<'EOF'
 <div class="dashboard-topbar">
   <span id="dash-toggle" class="dashboard-toggle">☰</span>
@@ -121,15 +119,13 @@ cat > layouts/partials/extend_body.html <<'EOF'
 </div>
 
 <div id="dash-sidebar" class="dashboard-sidebar">
-  <ul>
-    <li><a href="/">🏠 Home</a></li>
-    <li><a href="/posts/">📝 Notes</a></li>
-    <li><a href="/tags/">🏷 Tags</a></li>
-  </ul>
+  <a href="/">🏠 Home</a>
+  <a href="/posts/">📝 Notes</a>
+  <a href="/tags/">🏷 Tags</a>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const main = document.querySelector("main");
   if (main) {
     main.id = "dash-main";
@@ -139,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 EOF
 
-echo "✅ Dashboard UI applied successfully."
+echo "✅ Dashboard fixes applied."
 echo "Now run: hugo server --disableFastRender"
 echo "Then hard refresh: Ctrl + Shift + R"
 

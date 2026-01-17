@@ -4,15 +4,13 @@
 </div>
 
 <div id="dash-sidebar" class="dashboard-sidebar">
-  <ul>
-    <li><a href="/">🏠 Home</a></li>
-    <li><a href="/posts/">📝 Notes</a></li>
-    <li><a href="/tags/">🏷 Tags</a></li>
-  </ul>
+  <a href="/">🏠 Home</a>
+  <a href="/posts/">📝 Notes</a>
+  <a href="/tags/">🏷 Tags</a>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const main = document.querySelector("main");
   if (main) {
     main.id = "dash-main";
