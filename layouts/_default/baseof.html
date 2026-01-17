@@ -10,6 +10,7 @@
 </head>
 
 <body id="top" class="{{ if .IsHome }}home{{ end }}">
+{{ partial "dashboard.html" . }}
 
   {{ if not .IsHome }}
     {{ partialCached "header.html" . .Page -}}
