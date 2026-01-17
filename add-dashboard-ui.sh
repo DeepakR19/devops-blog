@@ -1,21 +1,30 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Applying FINAL correct Hugo homepage override..."
+echo "🔥 FINAL CLEAN REBUILD — wiping all custom UI"
 
 # Safety check
 if [ ! -f "hugo.toml" ]; then
-  echo "ERROR: Run this in Hugo root directory"
+  echo "❌ Run this from Hugo project root"
   exit 1
 fi
 
-# Clear public cache
+# 1. Remove all UI overrides
+rm -rf layouts/_default
+rm -rf layouts/partials
+rm -f layouts/index.html
+rm -f static/css/dashboard*.css
+rm -f static/js/dashboard*.js
+
+# 2. Clear public output
 rm -rf public
 
-# Create dirs
-mkdir -p static/css layouts/partials layouts/_default
+# 3. Recreate needed folders
+mkdir -p layouts/partials
+mkdir -p layouts/_default
+mkdir -p static/css
 
-# Clean dashboard CSS
+# 4. Add clean dashboard CSS
 cat > static/css/dashboard-clean.css <<'EOF'
 .dashboard-grid {
   display: grid;
@@ -29,10 +38,10 @@ cat > static/css/dashboard-clean.css <<'EOF'
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1.25rem;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
   text-decoration: none;
   color: var(--primary);
   display: block;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .dashboard-card:hover {
@@ -50,12 +59,12 @@ cat > static/css/dashboard-clean.css <<'EOF'
 }
 EOF
 
-# Hook CSS into PaperMod
+# 5. Hook CSS safely
 cat > layouts/partials/extend_head.html <<'EOF'
 <link rel="stylesheet" href="/css/dashboard-clean.css">
 EOF
 
-# THIS is the correct homepage override
+# 6. Override real homepage (correct Hugo logic)
 cat > layouts/_default/home.html <<'EOF'
 {{ define "main" }}
 <div class="page-header">
@@ -64,45 +73,23 @@ cat > layouts/_default/home.html <<'EOF'
 </div>
 
 <div class="dashboard-grid">
-  <a class="dashboard-card" href="/linux/">
-    <h3>🐧 Linux</h3>
-    <p>Explore Linux notes</p>
-  </a>
-  <a class="dashboard-card" href="/git/">
-    <h3>🌱 Git</h3>
-    <p>Explore Git notes</p>
-  </a>
-  <a class="dashboard-card" href="/cicd/">
-    <h3>🔁 CI/CD</h3>
-    <p>Explore CI/CD notes</p>
-  </a>
-  <a class="dashboard-card" href="/cloud/">
-    <h3>☁️ Cloud</h3>
-    <p>Explore Cloud notes</p>
-  </a>
-  <a class="dashboard-card" href="/docker/">
-    <h3>🐳 Docker</h3>
-    <p>Explore Docker notes</p>
-  </a>
-  <a class="dashboard-card" href="/kubernetes/">
-    <h3>☸️ Kubernetes</h3>
-    <p>Explore Kubernetes notes</p>
-  </a>
-  <a class="dashboard-card" href="/terraform/">
-    <h3>🏗 Terraform</h3>
-    <p>Explore Terraform notes</p>
-  </a>
-  <a class="dashboard-card" href="/ansible/">
-    <h3>⚙️ Ansible</h3>
-    <p>Explore Ansible notes</p>
-  </a>
+  <a class="dashboard-card" href="/linux/"><h3>🐧 Linux</h3><p>Explore Linux notes</p></a>
+  <a class="dashboard-card" href="/git/"><h3>🌱 Git</h3><p>Explore Git notes</p></a>
+  <a class="dashboard-card" href="/cicd/"><h3>🔁 CI/CD</h3><p>Explore CI/CD notes</p></a>
+  <a class="dashboard-card" href="/cloud/"><h3>☁️ Cloud</h3><p>Explore Cloud notes</p></a>
+  <a class="dashboard-card" href="/docker/"><h3>🐳 Docker</h3><p>Explore Docker notes</p></a>
+  <a class="dashboard-card" href="/kubernetes/"><h3>☸️ Kubernetes</h3><p>Explore Kubernetes notes</p></a>
+  <a class="dashboard-card" href="/terraform/"><h3>🏗 Terraform</h3><p>Explore Terraform notes</p></a>
+  <a class="dashboard-card" href="/ansible/"><h3>⚙️ Ansible</h3><p>Explore Ansible notes</p></a>
 </div>
 {{ end }}
 EOF
 
-echo "DONE."
+echo "✅ CLEAN REBUILD COMPLETE"
 echo ""
 echo "Now run:"
 echo "hugo server --disableFastRender"
-echo "Then HARD refresh: Ctrl + Shift + R"
+echo ""
+echo "Then HARD refresh:"
+echo "Ctrl + Shift + R"
 
