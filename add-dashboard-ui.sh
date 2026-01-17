@@ -1,64 +1,111 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Adding Developer Dashboard UI..."
+echo "Upgrading UI to Premium Developer Dashboard..."
 
-# Create dirs
 mkdir -p static/css static/js layouts/partials
 
-# CSS
-cat > static/css/dashboard.css <<'EOF'
-/* Dashboard Layout */
+cat > static/css/dashboard-premium.css <<'EOF'
+/* Premium Dashboard Styles */
+:root {
+  --dash-bg: #0f172a;
+  --dash-card: #111827;
+  --dash-border: #1f2937;
+  --dash-text: #e5e7eb;
+  --dash-muted: #9ca3af;
+  --dash-accent: #3b82f6;
+}
+
 .dashboard-topbar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 56px;
-  background: var(--theme);
+  height: 60px;
+  background: var(--dash-card);
+  border-bottom: 1px solid var(--dash-border);
   display: flex;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 1.2rem;
   z-index: 1000;
-  border-bottom: 1px solid var(--border);
 }
+
+.dashboard-brand {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--dash-text);
+}
+
+.dashboard-toggle {
+  margin-right: 1rem;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--dash-text);
+}
+
 .dashboard-sidebar {
   position: fixed;
-  top: 56px; left: 0;
-  width: 240px;
-  bottom: 0;
-  background: var(--theme);
-  border-right: 1px solid var(--border);
+  top: 60px; left: 0; bottom: 0;
+  width: 260px;
+  background: var(--dash-card);
+  border-right: 1px solid var(--dash-border);
   padding: 1rem;
-  transform: translateX(0);
-  transition: transform .2s ease;
+  transition: transform .25s ease;
   z-index: 999;
 }
+
 .dashboard-sidebar.collapsed {
   transform: translateX(-100%);
 }
-.dashboard-main {
-  margin-top: 56px;
-  margin-left: 240px;
-  padding: 2rem;
-  transition: margin-left .2s ease;
+
+.dashboard-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
 }
+
+.dashboard-sidebar li {
+  margin-bottom: .5rem;
+}
+
+.dashboard-sidebar a {
+  color: var(--dash-text);
+  text-decoration: none;
+  padding: .6rem .75rem;
+  display: block;
+  border-radius: 8px;
+}
+
+.dashboard-sidebar a:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.dashboard-main {
+  margin-top: 60px;
+  margin-left: 260px;
+  padding: 2rem;
+  transition: margin-left .25s ease;
+}
+
 .dashboard-main.full {
   margin-left: 0;
 }
-.dashboard-toggle {
-  cursor: pointer;
-  font-size: 20px;
-  margin-right: 1rem;
+
+.dashboard-card {
+  background: var(--dash-card);
+  border: 1px solid var(--dash-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--dash-text);
 }
 EOF
 
-# JS
-cat > static/js/dashboard.js <<'EOF'
+cat > static/js/dashboard-premium.js <<'EOF'
 document.addEventListener("DOMContentLoaded", function () {
   const toggle = document.getElementById("dash-toggle");
   const sidebar = document.getElementById("dash-sidebar");
   const main = document.getElementById("dash-main");
 
-  if (!toggle) return;
+  if (!toggle || !sidebar || !main) return;
 
   toggle.addEventListener("click", function () {
     sidebar.classList.toggle("collapsed");
@@ -67,21 +114,20 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 EOF
 
-# Partial
-cat > layouts/partials/dashboard.html <<'EOF'
-<link rel="stylesheet" href="/css/dashboard.css">
-<script defer src="/js/dashboard.js"></script>
+cat > layouts/partials/dashboard-premium.html <<'EOF'
+<link rel="stylesheet" href="/css/dashboard-premium.css">
+<script defer src="/js/dashboard-premium.js"></script>
 
 <div class="dashboard-topbar">
   <span id="dash-toggle" class="dashboard-toggle">☰</span>
-  <strong>DevOps Dashboard</strong>
+  <div class="dashboard-brand">DevOps Dashboard</div>
 </div>
 
 <div id="dash-sidebar" class="dashboard-sidebar">
-  <p><strong>Navigation</strong></p>
   <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/posts/">Posts</a></li>
+    <li><a href="/">🏠 Home</a></li>
+    <li><a href="/posts/">📝 Notes</a></li>
+    <li><a href="/tags/">🏷 Tags</a></li>
   </ul>
 </div>
 
@@ -96,13 +142,13 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 EOF
 
-# Inject into baseof.html
 BASE="layouts/_default/baseof.html"
-if grep -q "dashboard-topbar" "$BASE"; then
-  echo "Dashboard already injected."
+if grep -q "dashboard-premium" "$BASE"; then
+  echo "Premium dashboard already injected."
 else
-  sed -i '/<body/ a {{ partial "dashboard.html" . }}' "$BASE"
-  echo "Injected dashboard into base layout."
+  sed -i '/<body/ a {{ partial "dashboard-premium.html" . }}' "$BASE"
+  echo "Injected premium dashboard into base layout."
 fi
 
-echo "Done. Run: hugo server"
+echo "Upgrade complete. Run: hugo server"
+
