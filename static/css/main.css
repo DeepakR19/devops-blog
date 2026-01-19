@@ -3025,3 +3025,16 @@ body.home .hero-content * {
   .hero-actions { flex-direction: column !important; gap: 12px !important; }
   .hero-actions a { width: 100% !important; text-align: center !important; }
 }
+/* === MOBILE OPTIMIZATION: SECTION PAGES ONLY === */
+@media (max-width: 768px) {
+  main { padding: 16px !important; }
+  section { padding: 0 !important; }
+  .card, .content-card { width: 100% !important; margin: 0 auto 16px auto !important; }
+  .content, .post-content, .page-content { max-width: 100% !important; }
+  h1 { font-size: 1.6rem !important; }
+  h2 { font-size: 1.3rem !important; }
+  h3 { font-size: 1.1rem !important; }
+  p, li { font-size: 0.95rem !important; line-height: 1.5 !important; }
+  table { display: block !important; overflow-x: auto !important; }
+  pre, code { overflow-x: auto !important; }
+}
