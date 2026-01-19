@@ -1,0 +1,1527 @@
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --glass: rgba(255, 255, 255, 0.6);
+  --border: rgba(0, 0, 0, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.65);
+  --active-bg: rgba(0, 0, 0, 0.08);
+}
+
+body.dark {
+  --bg: #0b1220;
+  --text: #e5e7eb;
+  --glass: rgba(15, 23, 42, 0.6);
+  --border: rgba(255, 255, 255, 0.08);
+  --card-bg: rgba(30, 41, 59, 0.6);
+  --active-bg: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+  line-height: 1.5;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 16px 12px;
+  overflow: hidden;
+  border-right: 1px solid var(--border);
+  box-shadow: 6px 0 20px rgba(0,0,0,0.08);
+  transition: width 0.25s ease;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+}
+
+.toggle-btn {
+  margin-bottom: 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.toggle-btn:hover {
+  transform: scale(1.05);
+}
+
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  text-decoration: none;
+  color: var(--text);
+  white-space: nowrap;
+  border-radius: 10px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.nav a:hover {
+  transform: translateX(3px);
+  background: var(--active-bg);
+}
+
+.sidebar.collapsed .label {
+  display: none;
+}
+
+.nav a.active {
+  background: var(--active-bg);
+  font-weight: 600;
+}
+
+.main {
+  flex: 1;
+  padding: 32px;
+}
+
+/* Cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 26px;
+  margin-top: 28px;
+}
+
+.card {
+  padding: 28px 24px;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 18px;
+  text-decoration: none;
+  color: var(--text);
+  text-align: center;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 48px rgba(0,0,0,0.18);
+}
+
+/* Search (Phase 4A) */
+.search-box {
+  width: 100%;
+  padding: 6px 10px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  outline: none;
+}
+
+.search-box::placeholder {
+  color: var(--text);
+  opacity: 0.5;
+}
+
+/* Phase 4A: Top navigation (structure only) */
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-left .brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.nav-center {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.nav-link.active {
+  background: var(--active-bg);
+  font-weight: 600;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.main {
+  padding: 32px;
+}
+
+/* Phase 4B: Breadcrumbs (structure only) */
+.breadcrumbs {
+  padding: 10px 32px;
+  font-size: 0.9rem;
+  opacity: 0.75;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+.crumb-sep {
+  opacity: 0.5;
+}
+
+/* Phase 4E: Command blocks */
+pre {
+  position: relative;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.05);
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+
+body.dark pre {
+  background: rgba(255,255,255,0.05);
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  opacity: 0.8;
+}
+
+/* Homepage H1 — Hero */
+
+.hero {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.7;
+  max-width: 600px;
+  margin: 0 auto 32px;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.btn {
+  padding: 10px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn.primary {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+}
+
+.btn.secondary {
+  background: transparent;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+.hero-divider {
+  height: 1px;
+  background: var(--border);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Homepage H2 — Modern Cards */
+
+.card-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.card-grid.modern {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+}
+
+.card.modern {
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card.modern:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 48px rgba(0,0,0,0.18);
+}
+
+.card-icon {
+  font-size: 1.8rem;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+/* Homepage H3 — Identity Section */
+
+.identity-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 24px 120px;
+  text-align: center;
+}
+
+.identity-inner {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px 36px;
+}
+
+.identity-inner h2 {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+.identity-inner p {
+  font-size: 1.05rem;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto 12px;
+}
+
+/* Homepage H4 — Stats */
+
+.stats-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 120px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 24px;
+  text-align: center;
+}
+
+.stat {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.stat-number {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Final CTA */
+
+.final-cta {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px 120px;
+  text-align: center;
+}
+
+.final-cta h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.final-cta p {
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+
+/* ============================
+   H5-C — Aurora Background
+   ============================ */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 50% at 20% 10%, rgba(99,102,241,0.18), transparent 60%),
+    radial-gradient(50% 50% at 80% 20%, rgba(236,72,153,0.18), transparent 60%),
+    radial-gradient(40% 40% at 30% 80%, rgba(34,211,238,0.18), transparent 60%),
+    radial-gradient(50% 50% at 70% 70%, rgba(168,85,247,0.15), transparent 60%);
+  filter: blur(40px);
+  opacity: 0.9;
+}
+
+body.dark::before {
+  background:
+    radial-gradient(60% 50% at 20% 10%, rgba(56,189,248,0.15), transparent 60%),
+    radial-gradient(50% 50% at 80% 20%, rgba(168,85,247,0.15), transparent 60%),
+    radial-gradient(40% 40% at 30% 80%, rgba(34,211,238,0.12), transparent 60%),
+    radial-gradient(50% 50% at 70% 70%, rgba(236,72,153,0.12), transparent 60%);
+  filter: blur(60px);
+  opacity: 0.8;
+}
+
+/* Enhance glass contrast on aurora */
+.hero,
+.identity-inner,
+.card.modern,
+.stat {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ============================
+   H5-B — Tech Grid + Glow
+   ============================ */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(transparent 95%, rgba(0,0,0,0.03) 100%),
+    linear-gradient(90deg, transparent 95%, rgba(0,0,0,0.03) 100%),
+    radial-gradient(60% 40% at 20% 10%, rgba(99,102,241,0.12), transparent 60%),
+    radial-gradient(40% 40% at 80% 20%, rgba(34,211,238,0.12), transparent 60%),
+    radial-gradient(50% 50% at 50% 80%, rgba(168,85,247,0.12), transparent 60%);
+  background-size: 40px 40px, 40px 40px, auto, auto, auto;
+  filter: blur(0.3px);
+  opacity: 0.9;
+}
+
+body.dark::before {
+  background:
+    linear-gradient(transparent 95%, rgba(255,255,255,0.03) 100%),
+    linear-gradient(90deg, transparent 95%, rgba(255,255,255,0.03) 100%),
+    radial-gradient(60% 40% at 20% 10%, rgba(56,189,248,0.12), transparent 60%),
+    radial-gradient(40% 40% at 80% 20%, rgba(168,85,247,0.12), transparent 60%),
+    radial-gradient(50% 50% at 50% 80%, rgba(236,72,153,0.10), transparent 60%);
+  background-size: 40px 40px, 40px 40px, auto, auto, auto;
+  filter: blur(0.4px);
+  opacity: 0.85;
+}
+
+/* Slightly more contrast for glass panels on grid */
+.hero,
+.identity-inner,
+.card.modern,
+.stat {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ============================
+   H5 — HYBRID Background
+   ============================ */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    /* Subtle grid */
+    linear-gradient(transparent 95%, rgba(0,0,0,0.025) 100%),
+    linear-gradient(90deg, transparent 95%, rgba(0,0,0,0.025) 100%),
+
+    /* Aurora glows */
+    radial-gradient(60% 45% at 15% 10%, rgba(99,102,241,0.16), transparent 60%),
+    radial-gradient(45% 40% at 85% 20%, rgba(34,211,238,0.16), transparent 60%),
+    radial-gradient(40% 40% at 30% 85%, rgba(168,85,247,0.14), transparent 60%),
+    radial-gradient(45% 45% at 75% 75%, rgba(236,72,153,0.12), transparent 60%);
+  background-size: 40px 40px, 40px 40px, auto, auto, auto, auto;
+  filter: blur(40px);
+  opacity: 0.9;
+}
+
+body.dark::before {
+  background:
+    /* Subtle grid */
+    linear-gradient(transparent 95%, rgba(255,255,255,0.03) 100%),
+    linear-gradient(90deg, transparent 95%, rgba(255,255,255,0.03) 100%),
+
+    /* Aurora glows */
+    radial-gradient(60% 45% at 15% 10%, rgba(56,189,248,0.15), transparent 60%),
+    radial-gradient(45% 40% at 85% 20%, rgba(168,85,247,0.15), transparent 60%),
+    radial-gradient(40% 40% at 30% 85%, rgba(34,211,238,0.13), transparent 60%),
+    radial-gradient(45% 45% at 75% 75%, rgba(236,72,153,0.12), transparent 60%);
+  background-size: 40px 40px, 40px 40px, auto, auto, auto, auto;
+  filter: blur(60px);
+  opacity: 0.85;
+}
+
+/* Boost glass contrast slightly for hybrid */
+.hero,
+.identity-inner,
+.card.modern,
+.stat {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ============================
+   H6 — Micro Polish
+   ============================ */
+
+/* Soft section separators */
+.hero-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border),
+    transparent
+  );
+  margin: 80px auto;
+}
+
+/* Hero glow refinement */
+.hero {
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgba(99,102,241,0.12), transparent 60%);
+  filter: blur(60px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+body.dark .hero::after {
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgba(56,189,248,0.12), transparent 60%);
+}
+
+/* Subtle depth cues */
+.card-section,
+.identity-section,
+.stats-section,
+.final-cta {
+  position: relative;
+}
+
+.card-section::before,
+.identity-section::before,
+.stats-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0,0,0,0.02),
+    transparent
+  );
+  pointer-events: none;
+}
+
+body.dark .card-section::before,
+body.dark .identity-section::before,
+body.dark .stats-section::before {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255,255,255,0.03),
+    transparent
+  );
+}
+
+/* Smoother scrolling feel */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Slightly better section spacing rhythm */
+.card-section {
+  padding-top: 100px;
+}
+
+.identity-section {
+  padding-top: 100px;
+}
+
+.stats-section {
+  padding-top: 60px;
+}
+
+.final-cta {
+  padding-top: 80px;
+}
+
+/* ============================
+   H6 — TUNED POLISH
+   ============================ */
+
+/* Better text color system */
+:root {
+  --text-main: #0f172a;      /* soft charcoal */
+  --text-muted: #475569;     /* slate */
+}
+
+body.dark {
+  --text-main: #e5e7eb;      /* soft white */
+  --text-muted: #94a3b8;     /* muted gray */
+}
+
+body {
+  color: var(--text-main);
+}
+
+/* Headings stronger */
+h1, h2, h3 {
+  letter-spacing: -0.03em;
+}
+
+/* Hero impact boost */
+.hero-title {
+  font-size: 3.3rem;
+  font-weight: 700;
+}
+
+.hero-subtitle {
+  color: var(--text-muted);
+  font-size: 1.25rem;
+}
+
+/* Hero glow refined */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: -60px;
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgba(99,102,241,0.18), transparent 65%);
+  filter: blur(80px);
+  z-index: -1;
+}
+
+body.dark .hero::after {
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgba(56,189,248,0.18), transparent 65%);
+}
+
+/* Section continuity */
+.card-section,
+.identity-section,
+.stats-section {
+  position: relative;
+}
+
+.card-section::before,
+.identity-section::before,
+.stats-section::before {
+  content: "";
+  position: absolute;
+  inset: -40px 0;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0,0,0,0.035),
+    transparent
+  );
+  pointer-events: none;
+}
+
+body.dark .card-section::before,
+body.dark .identity-section::before,
+body.dark .stats-section::before {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255,255,255,0.04),
+    transparent
+  );
+}
+
+/* Cards: more pop */
+.card.modern {
+  box-shadow: 0 14px 36px rgba(0,0,0,0.18);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+body.dark .card.modern {
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.card.modern:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.25);
+}
+
+/* Identity text color */
+.identity-inner p {
+  color: var(--text-muted);
+}
+
+/* Stats pop */
+.stat-number {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* CTA more authority */
+.final-cta h2 {
+  font-size: 2.2rem;
+}
+
+.final-cta p {
+  color: var(--text-muted);
+}
+
+/* Improved section rhythm */
+.card-section { padding-top: 120px; }
+.identity-section { padding-top: 120px; }
+.stats-section { padding-top: 80px; }
+.final-cta { padding-top: 100px; }
+
+
+/* =============================
+   Phase 1: Dark Blue Foundation
+   ============================= */
+
+:root {
+  --bg: #0b1220;
+  --text: #e5e7eb;
+  --glass: rgba(15, 23, 42, 0.6);
+  --border: rgba(255, 255, 255, 0.08);
+  --card-bg: rgba(30, 41, 59, 0.6);
+  --active-bg: rgba(255, 255, 255, 0.08);
+
+  --accent: #3b82f6;
+  --accent-glow: #60a5fa;
+  --muted-text: #9ca3af;
+}
+
+body {
+  background: linear-gradient(180deg, #0b1220 0%, #020617 100%);
+  color: var(--text);
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+pre, code {
+  background: #020617 !important;
+  color: #e5e7eb !important;
+  border: 1px solid var(--border);
+}
+
+/* Subtle glow for primary buttons if any */
+button, .btn, .button {
+  border-color: var(--accent);
+}
+
+/* =============================
+   Phase 2: Glossy Top Navigation
+   ============================= */
+
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.nav-link {
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background: rgba(59, 130, 246, 0.12);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+}
+
+.nav-link.active {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.25),
+    rgba(96, 165, 250, 0.15)
+  );
+  box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.35),
+              0 0 12px rgba(96, 165, 250, 0.25);
+}
+
+.nav-left .brand {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.topnav::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0)
+  );
+}
+
+/* =============================
+   Phase 3: Glossy Cards
+   ============================= */
+
+.card,
+.section-card,
+.post-card,
+.article-card,
+.feature-card {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before,
+.section-card::before,
+.post-card::before,
+.article-card::before,
+.feature-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    rgba(96, 165, 250, 0.12),
+    rgba(59, 130, 246, 0.02)
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.card:hover,
+.section-card:hover,
+.post-card:hover,
+.article-card:hover,
+.feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 18px 45px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(96,165,250,0.25),
+    0 0 20px rgba(96,165,250,0.15);
+  border-color: rgba(96,165,250,0.4);
+}
+
+.card:hover::before,
+.section-card:hover::before,
+.post-card:hover::before,
+.article-card:hover::before,
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+/* =============================
+   Phase 4: Section Page Polish
+   ============================= */
+
+.page-header,
+.section-title,
+h1 {
+  position: relative;
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.4rem;
+}
+
+.page-header::after,
+.section-title::after,
+h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0.8;
+}
+
+h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--muted-text);
+}
+
+.content,
+.single-content,
+.post-content {
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.content p,
+.single-content p,
+.post-content p {
+  margin-bottom: 1.2rem;
+}
+
+.section-block,
+.content-section {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(96,165,250,0.4),
+    transparent
+  );
+  margin: 2rem 0;
+}
+
+/* =============================
+   Phase 5: Animations & Motion
+   ============================= */
+
+* {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+/* Buttons */
+button, .btn, .button {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover, .btn:hover, .button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4),
+              0 0 12px rgba(96,165,250,0.25);
+}
+
+button:active, .btn:active, .button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+/* Links */
+a {
+  position: relative;
+  text-decoration: none;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Soft fade-in for main content */
+main, .content, .page, .container {
+  animation: fadeInUp 0.5s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* =============================
+   Phase 6: Final Polish
+   ============================= */
+
+/* Ambient glow for key surfaces */
+.card,
+.section-card,
+.post-card,
+.article-card,
+.feature-card,
+.topnav,
+.section-block {
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35),
+    0 0 0 1px rgba(96,165,250,0.12),
+    0 0 18px rgba(96,165,250,0.06);
+}
+
+/* Edge highlight */
+.card::after,
+.section-card::after,
+.post-card::after,
+.article-card::after,
+.feature-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* Text refinement */
+h1, h2, h3 {
+  text-shadow: 0 0 12px rgba(96,165,250,0.06);
+}
+
+/* Soft separators */
+hr {
+  opacity: 0.6;
+}
+
+/* Subtle global glow */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(59,130,246,0.05), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(96,165,250,0.04), transparent 40%);
+  z-index: -1;
+}
+
+/* =============================
+   Phase 6.1: Section Page Fixes
+   ============================= */
+
+/* Remove animated underline inside section blocks */
+.section-block a::after,
+.section-card a::after,
+.post-card a::after,
+.article-card a::after,
+.feature-card a::after {
+  display: none !important;
+}
+
+/* Make section cards bigger */
+.section-block,
+.section-card,
+.post-card,
+.article-card,
+.feature-card {
+  padding: 2rem !important;
+}
+
+/* Bigger titles inside section cards */
+.section-block h2,
+.section-card h2,
+.post-card h2,
+.article-card h2,
+.feature-card h2 {
+  font-size: 1.4rem;
+}
+
+/* Bigger text */
+.section-block p,
+.section-card p,
+.post-card p,
+.article-card p,
+.feature-card p {
+  font-size: 1.05rem;
+}
+
+/* More breathing room */
+.section-block > * + *,
+.section-card > * + *,
+.post-card > * + *,
+.article-card > * + *,
+.feature-card > * + * {
+  margin-top: 0.8rem;
+}
+
+/* =============================
+   Phase 6.2: Remove Nav Underline
+   ============================= */
+
+/* Disable underline animation for nav & tabs */
+.topnav a::after,
+.nav-link::after,
+.breadcrumb a::after,
+.section-tabs a::after {
+  display: none !important;
+}
+
+/* Optional: Add subtle glow instead */
+.topnav a:hover,
+.nav-link:hover {
+  text-shadow: 0 0 12px rgba(96,165,250,0.35);
+}
+
+/* =============================
+   Phase 6.3: Remove Underline ONLY
+   ============================= */
+
+/* Kill animated underline for nav + tabs */
+.topnav a::after,
+.nav-link::after,
+.breadcrumb a::after,
+.section-tabs a::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* =============================
+   Phase 6.4: Kill Real Nav Underline
+   ============================= */
+
+/* Remove bottom borders & bars */
+.topnav a,
+.nav-link {
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* Kill any pseudo underline bars */
+.topnav a::before,
+.topnav a::after,
+.nav-link::before,
+.nav-link::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Active tab: use background only, no line */
+.topnav a.active,
+.nav-link.active {
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* =============================
+   FINAL NAV FIX
+   ============================= */
+
+/* Kill underline bars */
+.topnav a::before,
+.topnav a::after,
+.nav-link::before,
+.nav-link::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Remove bottom borders */
+.topnav a,
+.nav-link {
+  border-bottom: none !important;
+}
+
+/* Restore glow highlight */
+.topnav a:hover,
+.nav-link:hover {
+  background: rgba(96,165,250,0.12);
+  box-shadow: 0 0 0 1px rgba(96,165,250,0.35),
+              0 0 14px rgba(96,165,250,0.35);
+}
+
+/* Active tab style */
+.topnav a.active,
+.nav-link.active {
+  background: rgba(96,165,250,0.18);
+  box-shadow: 0 0 0 1px rgba(96,165,250,0.45),
+              0 0 18px rgba(96,165,250,0.45);
+}
+
+/* Increase size */
+.topnav a,
+.nav-link {
+  padding: 0.6rem 1.1rem !important;
+  font-size: 1.05rem !important;
+  border-radius: 10px;
+}
+
+/* =============================
+   NAV ABSOLUTE FIX (From DevTools)
+   ============================= */
+
+/* Kill all underline bars and pseudo-elements */
+.nav-link::before,
+.nav-link::after,
+.nav-link span::before,
+.nav-link span::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Remove any border-based underline */
+.nav-link,
+.nav-link span {
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+/* Remove inset shadows that fake underline */
+.nav-link {
+  box-shadow: none !important;
+}
+
+/* Restore glow hover (no underline) */
+.nav-link:hover {
+  background: rgba(96,165,250,0.12);
+  box-shadow: 0 0 0 1px rgba(96,165,250,0.35),
+              0 0 16px rgba(96,165,250,0.35) !important;
+}
+
+/* Active state (no underline, glow only) */
+.nav-link.active {
+  background: rgba(96,165,250,0.18);
+  box-shadow: 0 0 0 1px rgba(96,165,250,0.45),
+              0 0 18px rgba(96,165,250,0.45) !important;
+}
+
+/* Increase size */
+.nav-link {
+  padding: 0.7rem 1.3rem !important;
+  font-size: 1.1rem !important;
+  border-radius: 12px;
+}
+
+/* =============================
+   Phase S1: Reading Comfort
+   ============================= */
+
+/* Limit reading width */
+.content,
+.single-content,
+.post-content,
+.page-content,
+article {
+  max-width: 72ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Paragraph rhythm */
+.content p,
+.single-content p,
+.post-content p,
+.page-content p {
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+  color: rgba(229,231,235,0.95);
+}
+
+/* Headings rhythm */
+.content h1,
+.single-content h1,
+.post-content h1 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.2;
+}
+
+.content h2,
+.single-content h2,
+.post-content h2 {
+  margin-top: 2.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.content h3,
+.single-content h3,
+.post-content h3 {
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+}
+
+/* Lists */
+.content ul,
+.content ol,
+.single-content ul,
+.single-content ol {
+  margin-bottom: 1.2rem;
+  padding-left: 1.2rem;
+}
+
+.content li + li {
+  margin-top: 0.4rem;
+}
+
+/* Subtle section separation */
+.content h2::after,
+.single-content h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 2px;
+  margin-top: 0.5rem;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0.6;
+}
+
+/* =============================
+   Phase S1 Fix: Hook to Real Layout
+   ============================= */
+
+/* Main reading container */
+main.main {
+  max-width: 72ch;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Paragraph rhythm */
+main.main p {
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+  color: rgba(229,231,235,0.95);
+}
+
+/* Heading rhythm */
+main.main h1 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.2;
+}
+
+main.main h2 {
+  margin-top: 2.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+main.main h3 {
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+}
+
+/* Lists */
+main.main ul,
+main.main ol {
+  margin-bottom: 1.2rem;
+  padding-left: 1.2rem;
+}
+
+main.main li + li {
+  margin-top: 0.4rem;
+}
+
+/* Section separator */
+main.main h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 2px;
+  margin-top: 0.5rem;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0.6;
+}
+
+/* =============================
+   Phase S1 Restore: Reading Style A+B
+   ============================= */
+
+.section-reading-content {
+  max-width: 70ch;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem;
+}
+
+/* Paragraph rhythm */
+.section-reading-content p {
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+  color: rgba(229,231,235,0.95);
+  font-size: 1.02rem;
+}
+
+/* Headings */
+.section-reading-content h1 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.section-reading-content h2 {
+  margin-top: 2.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.section-reading-content h3 {
+  margin-top: 1.8rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+/* Lists */
+.section-reading-content ul,
+.section-reading-content ol {
+  margin-bottom: 1.2rem;
+  padding-left: 1.4rem;
+}
+
+.section-reading-content li + li {
+  margin-top: 0.45rem;
+}
+
+/* Horizontal rules */
+.section-reading-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  margin: 2rem 0;
+}
+
+/* Subtle section divider */
+.section-reading-content h2::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 2px;
+  margin-top: 0.5rem;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0.6;
+}

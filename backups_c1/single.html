@@ -1,0 +1,16 @@
+{{ define "main" }}
+<section class="section-hero">
+  <div class="section-glass">
+    <h1 class="section-title">{{ .Title }}</h1>
+    {{ with .Params.summary }}
+      <p class="section-subtitle">{{ . }}</p>
+    {{ end }}
+  </div>
+</section>
+
+<section class="section-article">
+  <div class="article-glass">
+    {{ .Content }}
+  </div>
+</section>
+{{ end }}

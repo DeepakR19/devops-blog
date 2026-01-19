@@ -1,0 +1,21 @@
+<nav class="topnav">
+  <div class="nav-left">
+    <a href="/" class="brand">DevOps</a>
+  </div>
+
+  <div class="nav-center" id="navList">
+    <a href="/linux/" class="nav-link">🐧 <span>Linux</span></a>
+    <a href="/git/" class="nav-link">🌱 <span>Git</span></a>
+    <a href="/cicd/" class="nav-link">🔁 <span>CI/CD</span></a>
+    <a href="/cloud/" class="nav-link">☁️ <span>Cloud</span></a>
+    <a href="/docker/" class="nav-link">🐳 <span>Docker</span></a>
+    <a href="/kubernetes/" class="nav-link">☸ <span>Kubernetes</span></a>
+    <a href="/terraform/" class="nav-link">🏗 <span>Terraform</span></a>
+    <a href="/ansible/" class="nav-link">⚙️ <span>Ansible</span></a>
+  </div>
+
+  <div class="nav-right">
+    <input id="searchInput" class="search-box" type="text" placeholder="Search..." />
+    <button id="themeToggle" class="toggle-btn">🌓</button>
+  </div>
+</nav>

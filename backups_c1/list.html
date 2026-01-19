@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="section-wrapper">
+  <section class="section-hero">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}
+      <p>{{ . }}</p>
+    {{ else }}
+      <p>Welcome to the {{ .Title }} section.</p>
+    {{ end }}
+  </section>
+
+  <div class="section-content">
+    {{ .Content }}
+  </div>
+</div>
+{{ end }}

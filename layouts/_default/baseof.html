@@ -8,6 +8,7 @@
   <script defer src="/js/main.js"></script>
 </head>
 <body>
+  {{ if .IsHome }}{{ partial "header-home.html" . }}{{ end }}
   {{ if not .IsHome }}
     {{ partial "topnav.html" . }}
     {{ partial "breadcrumbs.html" . }}

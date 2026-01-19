@@ -1,8 +1,18 @@
 {{ define "main" }}
+
 <h1>{{ .Title }}</h1>
+
 <ul class="list">
   {{ range .Pages }}
     <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   {{ end }}
 </ul>
+
+<!-- =============================
+     Phase S1: Section Reading Content
+     ============================= -->
+<section class="section-reading-content">
+  {{ .Content }}
+</section>
+
 {{ end }}

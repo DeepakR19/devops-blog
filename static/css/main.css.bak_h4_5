@@ -1,0 +1,942 @@
+:root {
+  --bg: #f8fafc;
+  --text: #0f172a;
+  --muted: #64748b;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --primary: #4f46e5;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.hero {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+  background: radial-gradient(circle at top, #eef2ff, transparent 60%);
+}
+
+.hero-glass {
+  max-width: 720px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  letter-spacing: -0.03em;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--muted);
+  margin-top: 1rem;
+}
+
+.hero-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--text);
+}
+
+.features {
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.features h2 {
+  font-size: 2.2rem;
+  text-align: center;
+}
+
+.features-subtitle {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 3rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--card);
+  padding: 1.5rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  font-weight: 600;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+}
+
+/* =========================
+   ========================= */
+
+   ========================= */
+
+/* =========================
+   H4 — Depth & Section Polish
+   ========================= */
+
+/* Section separators */
+.features-dark::before {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 1px;
+  margin: 0 auto 5rem;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.2),
+    transparent
+  );
+}
+
+/* Section depth */
+.cta-dark p {
+  color: var(--text-muted);
+}
+
+/* Reduce overall glow noise */
+.hero-dark::after {
+  opacity: 0.55;
+}
+
+
+/* =========================
+   Matte Dark Background + Soft Glow
+   ========================= */
+
+  position: relative;
+  z-index: 2;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow:
+    0 40px 120px rgba(0,0,0,0.75),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+/* Hero title: stronger presence */
+.hero-title {
+  font-size: clamp(2.8rem, 5vw, 3.6rem);
+  background: linear-gradient(180deg, #ffffff, #c7d2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.035em;
+}
+
+/* Subtitle: clearer + premium */
+.hero-subtitle {
+  color: #b8c0d4;
+  font-size: 1.2rem;
+  max-width: 720px;
+}
+
+/* Button glow refinement */
+.btn-glass.primary {
+  box-shadow:
+    0 0 0 rgba(99,102,241,0.4),
+    inset 0 0 0 rgba(255,255,255,0.1);
+}
+
+.btn-glass.primary:hover {
+  box-shadow:
+    0 0 30px rgba(99,102,241,0.5),
+    0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* Slight parallax illusion */
+.hero-glass:hover {
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   PHASE 1 — HERO RESET
+   ========================= */
+
+.hero-dark {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: #020617;
+  overflow: hidden;
+}
+
+/* Main glow */
+.hero-dark::before {
+  content: "";
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(99,102,241,0.28), transparent 60%);
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(160px);
+  pointer-events: none;
+}
+
+/* Secondary glow */
+.hero-dark::after {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(56,189,248,0.18), transparent 60%);
+  bottom: -30%;
+  right: -15%;
+  filter: blur(160px);
+  pointer-events: none;
+}
+
+.hero-glass {
+  position: relative;
+  z-index: 2;
+  max-width: 880px;
+  width: 100%;
+  padding: 5rem 4rem;
+  border-radius: 28px;
+  background: rgba(255,255,255,0.045);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 50px 120px rgba(0,0,0,0.8),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 5vw, 3.8rem);
+  letter-spacing: -0.04em;
+  font-weight: 750;
+  background: linear-gradient(180deg, #ffffff, #c7d2fe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.4rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #b6c0d1;
+  max-width: 720px;
+  margin: 0 auto 3rem;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.btn-glass.primary {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  box-shadow: 0 0 0 rgba(99,102,241,0.4);
+}
+
+.btn-glass.primary:hover {
+  box-shadow: 0 0 35px rgba(99,102,241,0.55);
+}
+
+
+/* =========================
+   PHASE 2 — CARDS RESET
+   ========================= */
+
+.features-dark {
+  padding: 7rem 2rem 9rem;
+  background: transparent;
+  text-align: center;
+}
+
+.features-title {
+  font-size: clamp(2.2rem, 4vw, 2.6rem);
+  color: #f8fafc;
+  margin-bottom: 0.6rem;
+}
+
+.features-subtitle {
+  color: #a8b0c4;
+  max-width: 640px;
+  margin: 0 auto 4rem;
+  font-size: 1.05rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.feature-card-dark {
+  position: relative;
+  padding: 2.2rem 2rem;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #e6eaf3;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-align: left;
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+/* Soft inner highlight */
+.feature-card-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.06),
+    transparent 40%
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.feature-card-dark:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: rgba(255,255,255,0.065);
+  border-color: rgba(124,131,255,0.35);
+  box-shadow:
+    0 40px 90px rgba(0,0,0,0.7),
+    0 0 0 1px rgba(124,131,255,0.25),
+    0 0 40px rgba(124,131,255,0.25);
+}
+
+/* Make emoji icons feel intentional */
+.feature-card-dark {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.feature-card-dark::first-letter {
+  font-size: 1.4rem;
+}
+
+
+/* =========================
+   HERO DARK GLASS
+========================= */
+
+.hero-dark {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a1f3a, #050814 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+}
+
+.hero-glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  max-width: 720px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(120, 140, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #eef2ff;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #b9c2ff;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* =========================
+   GLASS BUTTONS
+========================= */
+
+.btn-glass {
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-glass.primary {
+  background: linear-gradient(135deg, #5b6cff, #8f9cff);
+  color: #fff;
+  box-shadow: 0 0 25px rgba(120,140,255,0.4);
+}
+
+.btn-glass.secondary {
+  background: rgba(255,255,255,0.08);
+  color: #dbe1ff;
+}
+
+.btn-glass:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(120,140,255,0.6);
+}
+
+/* =========================
+   FEATURES SECTION
+========================= */
+
+.features-dark {
+  padding: 6rem 2rem;
+  background: #f9fafc;
+  text-align: center;
+}
+
+.features-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.features-subtitle {
+  color: #475569;
+  margin: 1rem auto 3rem;
+  max-width: 520px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature-card-dark {
+  background: white;
+  padding: 1.6rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  font-weight: 600;
+  color: #0f172a;
+}
+
+
+/* =========================
+   H2 MATTE SECTION THEME
+   ========================= */
+
+.matte-section {
+  background: linear-gradient(180deg, #0c1022 0%, #0e132b 50%, #0b0f1f 100%);
+  padding: 120px 24px;
+  text-align: center;
+  color: #e5e7eb;
+}
+
+.features-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  color: #f3f4f6;
+}
+
+.features-subtitle {
+  font-size: 1.05rem;
+  color: #a5b4fc;
+  max-width: 520px;
+  margin: 0 auto 60px;
+  line-height: 1.6;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature-card-dark {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 22px 24px;
+  color: #e5e7eb;
+  font-weight: 500;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(6px);
+}
+
+.feature-card-dark:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 600px) {
+  .features-title {
+    font-size: 2.1rem;
+  }
+}
+
+
+/* =========================
+   H3 — FLOW & TRANSITIONS
+   ========================= */
+
+/* Section spacing rhythm */
+.hero-dark {
+  margin-bottom: 0;
+  padding-bottom: 8rem;
+}
+
+.matte-section {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+  position: relative;
+}
+
+/* Soft separator glow */
+.matte-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.15),
+    transparent
+  );
+}
+
+/* Subtle fade-up animation */
+@keyframes fadeUpSoft {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.features-title,
+.features-subtitle,
+.feature-card-dark {
+  animation: fadeUpSoft 0.6s ease both;
+}
+
+/* Stagger effect */
+.feature-card-dark:nth-child(1) { animation-delay: 0.05s; }
+.feature-card-dark:nth-child(2) { animation-delay: 0.1s; }
+.feature-card-dark:nth-child(3) { animation-delay: 0.15s; }
+.feature-card-dark:nth-child(4) { animation-delay: 0.2s; }
+.feature-card-dark:nth-child(5) { animation-delay: 0.25s; }
+.feature-card-dark:nth-child(6) { animation-delay: 0.3s; }
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* =========================
+   H4 — TYPOGRAPHY POLISH
+   ========================= */
+
+/* Base typography tuning */
+body {
+  font-feature-settings: "kern", "liga", "clig", "calt";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings hierarchy */
+.hero-title {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.features-title {
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+h1, h2, h3 {
+  line-height: 1.15;
+}
+
+p {
+  line-height: 1.65;
+}
+
+/* Subtitle tuning */
+.hero-subtitle {
+  font-weight: 450;
+  color: #c7d2fe;
+}
+
+.features-subtitle {
+  font-weight: 450;
+  color: #cbd5f5;
+}
+
+/* Card text */
+.feature-card-dark {
+  font-weight: 550;
+  letter-spacing: -0.01em;
+}
+
+/* Improve text clarity */
+.hero-title,
+.features-title,
+.feature-card-dark {
+  text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  .hero-title {
+    letter-spacing: -0.02em;
+  }
+}
+
+
+/* =========================
+   GAP CONTROL PATCH
+   ========================= */
+
+/* Hero section spacing */
+.hero-dark {
+  min-height: 85vh; /* instead of full 100vh */
+  padding-bottom: 4rem;
+}
+
+/* Remove excessive bottom margin */
+.hero-glass {
+  margin-bottom: 0 !important;
+}
+
+/* Pull features up */
+.features-dark {
+  margin-top: -6rem;
+  padding-top: 4rem;
+}
+
+/* Prevent accidental huge spacing */
+section {
+  scroll-margin-top: 4rem;
+}
+
+
+/* ============================
+   Phase H4.2 — Typography
+============================ */
+
+/* Section spacing normalization */
+section {
+  padding: 5rem 1.5rem;
+}
+
+/* H2 improvements */
+.features-title {
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #e9ecff;
+  margin-bottom: 0.6rem;
+}
+
+/* Subtitle improvement */
+.features-subtitle {
+  font-size: 1.05rem;
+  color: rgba(220, 225, 255, 0.75);
+  max-width: 640px;
+  margin: 0 auto 3rem auto;
+  line-height: 1.6;
+}
+
+/* Card text clarity */
+.feature-card-dark {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #eef1ff;
+  letter-spacing: 0.01em;
+}
+
+/* Mobile tuning */
+@media (max-width: 640px) {
+  .features-title {
+    font-size: 1.8rem;
+  }
+
+  .features-subtitle {
+    font-size: 0.95rem;
+  }
+
+  section {
+    padding: 3.5rem 1.25rem;
+  }
+}
+
+
+/* ============================
+   Phase H4.3 — Card Polish
+============================ */
+
+.feature-card-dark {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.015)
+  );
+  border-radius: 18px;
+  padding: 1.3rem 1.5rem;
+  box-shadow:
+    0 10px 25px rgba(0,0,0,0.35),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Soft glow edge */
+.feature-card-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    rgba(120,140,255,0.12),
+    rgba(120,140,255,0.0) 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Hover effect */
+.feature-card-dark:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+.feature-card-dark:hover::before {
+  opacity: 1;
+}
+
+/* Active tap feedback */
+.feature-card-dark:active {
+  transform: translateY(-2px);
+}
+
+
+/* ============================
+   Phase H4.4 — Motion & Depth
+============================ */
+
+/* Floating animation */
+@keyframes floatSoft {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+/* Fade-in entrance */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply entrance */
+.hero-glass,
+.features-dark {
+  animation: fadeUp 0.8s ease-out both;
+}
+
+/* Stagger cards */
+.feature-card-dark {
+  animation: floatSoft 6s ease-in-out infinite;
+}
+
+/* Section separator line */
+.features-dark::before {
+  content: "";
+  display: block;
+  width: 70%;
+  height: 1px;
+  margin: 0 auto 4rem auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.08),
+    transparent
+  );
+}
+
+/* Soft section fade edge */
+.features-dark {
+  position: relative;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  background: radial-gradient(
+    circle at top,
+    rgba(120,140,255,0.06),
+    transparent 60%
+  );
+}
+
+
+/* ================================
+   H4.4 — Seamless Section Blending
+================================ */
+
+/* Hero bottom fade */
+.hero-dark {
+  position: relative;
+  padding-bottom: 140px;
+}
+
+.hero-dark::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  background: linear-gradient(
+    to bottom,
+    rgba(7, 10, 22, 0) 0%,
+    rgba(7, 10, 22, 0.7) 60%,
+    rgba(7, 10, 22, 1) 100%
+  );
+  pointer-events: none;
+}
+
+/* Features matte dark background */
+.features-dark {
+  background: linear-gradient(
+    to bottom,
+    #070a16 0%,
+    #0b1022 40%,
+    #0e1430 100%
+  );
+  padding-top: 140px;
+  padding-bottom: 140px;
+  margin-top: -120px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Features title contrast */
+.features-title {
+  color: #e9ecff;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Subtitle clarity */
+.features-subtitle {
+  color: rgba(210, 215, 255, 0.75);
+}
+
+/* Card anchoring */
+.features-grid {
+  margin-top: 60px;
+}
+
+/* Matte card refinement */
+.feature-card-dark {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.02)
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* Kill dead white flashes */
+body {
+  background: #070a16;
+}
+

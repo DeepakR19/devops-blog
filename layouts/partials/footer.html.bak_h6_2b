@@ -1,0 +1,25 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>DevOps Knowledge Hub</h3>
+      <p>Real-world DevOps learning, documented.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="/linux/">Linux</a>
+      <a href="/git/">Git</a>
+      <a href="/docker/">Docker</a>
+      <a href="/kubernetes/">Kubernetes</a>
+      <a href="/cloud/">Cloud</a>
+    </div>
+
+    <div class="footer-meta">
+      <a href="https://github.com/" target="_blank">GitHub</a>
+      <span>© <span id="year"></span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>

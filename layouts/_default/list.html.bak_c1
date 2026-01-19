@@ -1,0 +1,29 @@
+{{ define "main" }}
+
+<section class="section-hero">
+  <div class="section-glass">
+    <h1 class="section-title">{{ .Title }}</h1>
+    {{ with .Params.description }}
+      <p class="section-subtitle">{{ . }}</p>
+    {{ else }}
+      <p class="section-subtitle">Explore curated content on {{ .Title }}.</p>
+    {{ end }}
+  </div>
+</section>
+
+<section class="section-content">
+  <div class="section-container">
+    <div class="post-grid">
+      {{ range .Pages }}
+        <a href="{{ .RelPermalink }}" class="post-card">
+          <h3>{{ .Title }}</h3>
+          {{ with .Params.description }}
+            <p>{{ . }}</p>
+          {{ end }}
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{ end }}

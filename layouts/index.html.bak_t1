@@ -1,0 +1,32 @@
+{{ define "main" }}
+
+<section class="hero-dark">
+  <div class="hero-glass">
+    <h1 class="hero-title">DevOps Knowledge Hub</h1>
+
+    <p class="hero-subtitle">
+      Real-world Linux, Docker, Kubernetes, Cloud & CI/CD — documented as I learn.
+    </p>
+
+    <div class="hero-actions">
+      <a href="/linux/" class="btn-glass primary">Start Learning</a>
+      <a href="https://github.com/" class="btn-glass secondary">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section class="features-dark">
+  <h2 class="features-title">What You’ll Learn</h2>
+  <p class="features-subtitle">Practical DevOps. No fluff. Real-world skills.</p>
+
+  <div class="features-grid">
+    <div class="feature-card-dark">🐧 Linux Internals</div>
+    <div class="feature-card-dark">🌱 Git Workflows</div>
+    <div class="feature-card-dark">🔁 CI/CD Pipelines</div>
+    <div class="feature-card-dark">☁️ Cloud Fundamentals</div>
+    <div class="feature-card-dark">🐳 Docker</div>
+    <div class="feature-card-dark">☸️ Kubernetes</div>
+  </div>
+</section>
+
+{{ end }}
