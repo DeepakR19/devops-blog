@@ -3038,3 +3038,15 @@ body.home .hero-content * {
   table { display: block !important; overflow-x: auto !important; }
   pre, code { overflow-x: auto !important; }
 }
+/* === HARD MOBILE OVERRIDE === */
+@media (max-width: 768px) {
+  body * { max-width: 100% !important; }
+  main, section, article, .container, .content, .page, .wrapper { width: 100% !important; margin: 0 !important; padding: 12px !important; }
+  .grid, .row, .col { display: block !important; width: 100% !important; }
+  h1 { font-size: 1.5rem !important; }
+  h2 { font-size: 1.25rem !important; }
+  h3 { font-size: 1.1rem !important; }
+  p, li { font-size: 0.95rem !important; line-height: 1.5 !important; }
+  table { display: block !important; overflow-x: auto !important; }
+  pre, code { overflow-x: auto !important; }
+}
